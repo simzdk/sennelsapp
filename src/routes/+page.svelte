@@ -10,7 +10,7 @@
 
 <div>
 	<Tabs.Root value="friday">
-        <div class="mx-auto my-5 flex w-full flex-col items-center justify-center gap-6 md:max-w-sm">
+        <div class="mx-auto my-5 flex flex-col items-center justify-center gap-6 md:max-w-sm">
             <Tabs.List>
                 <Tabs.Trigger value="friday">Fredag 20/6</Tabs.Trigger>
                 <Tabs.Trigger value="saturday">Lørdag 21/6</Tabs.Trigger>
@@ -19,7 +19,7 @@
                 <Tabs.Trigger value="info"><Information /></Tabs.Trigger>
             </Tabs.List>
         </div>
-        <div class="w-1/2 mx-auto">
+        <div class="w-full xl:w-1/2 mx-auto">
             <Tabs.Content value="friday">
                 <Friday />
             </Tabs.Content>
