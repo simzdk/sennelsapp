@@ -25,8 +25,10 @@
         <Table.Row>
             <Table.Cell class="font-medium text-center">1830</Table.Cell>
             <Table.Cell>
-                <b>Båltaler: Annika Frækjær, Ventre, Kommunalvalg kandidat</b><br/>
-                Kåring af årets Sennels-bo ✨
+                <p class="whitespace-normal">
+                    <b>Båltaler: Annika Frækjær, Ventre, Kommunalvalg kandidat</b><br/>
+                    Kåring af årets Sennels-bo ✨
+                </p>
             </Table.Cell>
         </Table.Row>        
         <Table.Row>
