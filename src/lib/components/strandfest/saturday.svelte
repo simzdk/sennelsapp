@@ -25,16 +25,16 @@
         <Table.Row>
             <Table.Cell class="font-medium text-center">1430</Table.Cell>
             <Table.Cell>
-                <div class="text-pretty">
+                <p class="whitespace-normal">
                     <b>Børne-Skumparty</b><br/>
                     Skumparty på stranden med musik og kæmpe skum-anlæg. Husk tørt tøj.<br/>
-                </div>
+                </p>
             </Table.Cell>
         </Table.Row>        
         <Table.Row>
             <Table.Cell class="font-medium text-center">1830</Table.Cell>
             <Table.Cell>
-                <div class="text-pretty">
+                <p class="whitespace-normal">
                     <b>Grisefest 🐷</b><br/>
                     Helstegt gris med tilbehør fra "Den Gamle Slagter"<br/>
                     Pris 250 kr. Betaling skal ske via MobilePay ved tilmelding.<br/>
@@ -43,7 +43,7 @@
                     Betaling via MobilePay er ikke nok<br/><br/>
                     Cocktailbar<br/>
                     Musik & Dans<br/>
-                </div>
+                </p>
             </Table.Cell>
         </Table.Row>             
         <Table.Row>

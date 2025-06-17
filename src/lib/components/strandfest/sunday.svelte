@@ -21,12 +21,14 @@
                 1230
             </Table.Cell>
             <Table.Cell>
-                <b>Brunchbord</b><br/>
-                Stort lækkert brunchbord. Pris 130 kr. Børn u/8 år halv pris. <br/>
-                Billetter købes ved indgangen. Tilmelding tilrådes.<br/>
-                <br/>
+                <p class="whitespace-normal">
+                    <b>Brunchbord</b><br/>
+                    Stort lækkert brunchbord. Pris 130 kr. Børn u/8 år halv pris. <br/>
+                    Billetter købes ved indgangen. Tilmelding tilrådes.<br/>
+                    <br/>
 
-                Festpladsen åbner med alle aktiviteer 🎉<br/>
+                    Festpladsen åbner med alle aktiviteer 🎉<br/>
+                </p>
             </Table.Cell>
         </Table.Row>
         <Table.Row>
