@@ -2,7 +2,7 @@
 	import * as Table from '$lib/components/ui/table';
     import Icon_time from '$lib/components/icons/icon_time.svelte';
 </script>
-<div>
+<div class="wrap-break-word">
 <Table.Root>
     <Table.Header>
         <Table.Row class="bg-gray-100 text-secondary-foreground">
@@ -31,7 +31,7 @@
         <Table.Row>
             <Table.Cell class="font-medium text-center">1830</Table.Cell>
             <Table.Cell>
-                <div class="text-pretty">
+                <div class="wrap-break-word text-pretty">
                     <b>Fællesspisning</b><br/>
                     Boller i karry - Pris 65 kr pr person. Børn under 3 år gratis.<br/> 
                     (Bestil gerne hos Helle.)<br/>
