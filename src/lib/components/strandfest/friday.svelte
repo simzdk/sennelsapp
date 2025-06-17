@@ -42,8 +42,10 @@
         <Table.Row>
             <Table.Cell class="font-medium text-center">1930</Table.Cell>
             <Table.Cell>
-                <b>⭐ for en aften</b><br/>
-                Lokale Sennelsboere går på scenen og giver et nummer.<br/>
+                <p class="whitespace-normal">
+                    <b>⭐ for en aften</b><br/>
+                    Lokale Sennelsboere går på scenen og giver et nummer.<br/>
+                </p>
             </Table.Cell>
         </Table.Row>             
         <Table.Row>
