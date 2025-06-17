@@ -17,7 +17,7 @@
         <Table.Row>
             <Table.Cell class="font-medium text-center">
                 1030<br>
-                ⬇<br/>
+                |<br/>
                 1230
             </Table.Cell>
             <Table.Cell>

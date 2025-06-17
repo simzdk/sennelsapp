@@ -18,7 +18,7 @@
         <Table.Row>
             <Table.Cell class="font-medium text-center">
                 1600<br>
-                ⬇<br/>
+                |<br/>
                 1800</Table.Cell>
             <Table.Cell>
                 <b>Børnefest</b><br/>
@@ -31,10 +31,12 @@
         <Table.Row>
             <Table.Cell class="font-medium text-center">1830</Table.Cell>
             <Table.Cell>
-                <b>Fællesspisning</b><br/>
-                Boller i karry - Pris 65 kr pr person. Børn under 3 år gratis.<br/> 
-                (Bestil gerne hos Helle.)<br/>
-                Festpladsen åbner med hoppeborg, karrusel, tombola, pølser, is, slikvogn, grilltelt og det store øltelt.<br/>
+                <div class="text-pretty">
+                    <b>Fællesspisning</b><br/>
+                    Boller i karry - Pris 65 kr pr person. Børn under 3 år gratis.<br/> 
+                    (Bestil gerne hos Helle.)<br/>
+                    Festpladsen åbner med hoppeborg, karrusel, tombola, pølser, is, slikvogn, grilltelt og det store øltelt.<br/>
+                </div>
             </Table.Cell>
         </Table.Row>        
         <Table.Row>

@@ -16,7 +16,6 @@
                 <Tabs.Trigger value="saturday">Lørdag 21/6</Tabs.Trigger>
                 <Tabs.Trigger value="sunday">Søndag 22/6</Tabs.Trigger>
                 <Tabs.Trigger value="monday">Mandag 23/6</Tabs.Trigger>
-                <Tabs.Trigger value="info"><Information /></Tabs.Trigger>
             </Tabs.List>
         </div>
         <div class="w-full xl:w-1/2 mx-auto">
@@ -31,9 +30,6 @@
             </Tabs.Content>
             <Tabs.Content value="monday">
                 <Monday />
-            </Tabs.Content>
-            <Tabs.Content value="info">
-                <InfoPage />
             </Tabs.Content>
         </div>        
     </Tabs.Root>
