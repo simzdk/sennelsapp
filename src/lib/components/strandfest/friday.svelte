@@ -31,12 +31,12 @@
         <Table.Row>
             <Table.Cell class="font-medium text-center">1830</Table.Cell>
             <Table.Cell>
-                <div class="wrap-break-word text-pretty overflow-wrap: anywhere">
+                <p class="whitespace-normal">
                     <b>Fællesspisning</b><br/>
                     Boller i karry - Pris 65 kr pr person. Børn under 3 år gratis.<br/> 
                     (Bestil gerne hos Helle.)<br/>
                     Festpladsen åbner med hoppeborg, karrusel, tombola, pølser, is, slikvogn, grilltelt og det store øltelt.<br/>
-                </div>
+                </p>
             </Table.Cell>
         </Table.Row>        
         <Table.Row>
