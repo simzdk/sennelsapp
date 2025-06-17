@@ -31,7 +31,7 @@
         <Table.Row>
             <Table.Cell class="font-medium text-center">1830</Table.Cell>
             <Table.Cell>
-                <div class="wrap-break-word text-pretty">
+                <div class="wrap-break-word text-pretty overflow-wrap: anywhere">
                     <b>Fællesspisning</b><br/>
                     Boller i karry - Pris 65 kr pr person. Børn under 3 år gratis.<br/> 
                     (Bestil gerne hos Helle.)<br/>
