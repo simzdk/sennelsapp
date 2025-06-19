@@ -7,7 +7,7 @@
     import Monday from '$lib/components/strandfest/monday.svelte';
     import InfoPage from '$lib/components/strandfest/infopage.svelte';
 </script>
-
+Dev
 <div>
 	<Tabs.Root value="friday">
         <div class="mx-auto my-5 flex flex-col items-center justify-center gap-6 md:max-w-sm">
