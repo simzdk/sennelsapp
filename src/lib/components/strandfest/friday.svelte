@@ -49,6 +49,15 @@
             </Table.Cell>
         </Table.Row>             
         <Table.Row>
+            <Table.Cell class="font-medium text-center">2200</Table.Cell>
+            <Table.Cell>
+                <p class="whitespace-normal">
+                    <b>🎵 Jam Band Joggling 🎵</b><br/>
+                    En gang om året vækkes Jam Band Joggling til live, og det skal man ikke få glip af. Vi ses i teltet. <br/>
+                </p>
+            </Table.Cell>
+        </Table.Row>                     
+        <Table.Row>
             <Table.Cell class="font-medium text-center">0100</Table.Cell>
             <Table.Cell>
                 Tak for i dag. 
