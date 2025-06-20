@@ -53,7 +53,7 @@
             <Table.Cell>
                 <p class="whitespace-normal">
                     <b>🎵 Jam Band Joggling 🎵</b><br/>
-                    En gang om året vækkes Jam Band Joggling til live, og det skal man ikke få glip af. Vi ses i teltet. <br/>
+                    En gang om året vækkes Jam Band Joggling til live, og det skal man ikke gå glip af. Vi ses i teltet! <br/>
                 </p>
             </Table.Cell>
         </Table.Row>                     
