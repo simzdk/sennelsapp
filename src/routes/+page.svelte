@@ -6,10 +6,27 @@
     import Sunday from '$lib/components/strandfest/sunday.svelte';
     import Monday from '$lib/components/strandfest/monday.svelte';
     import InfoPage from '$lib/components/strandfest/infopage.svelte';
+
+
+    let today = new Date();
+    let dayValue = 'friday';
+
+    // Get the current day of week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+    const dayOfWeek = today.getDay();
+
+    if (dayOfWeek === 6) {
+        dayValue = 'saturday';
+    } else if (dayOfWeek === 0) {
+        dayValue = 'sunday';
+    } else if (dayOfWeek === 1) {
+        dayValue = 'monday';
+    } else {
+        dayValue = 'friday';
+    }
 </script>
 
 <div>
-	<Tabs.Root value="friday">
+    <Tabs.Root value={dayValue}>
         <div class="mx-auto my-5 flex flex-col items-center justify-center gap-6 md:max-w-sm">
             <Tabs.List>
                 <Tabs.Trigger value="friday">Fredag 20/6</Tabs.Trigger>
