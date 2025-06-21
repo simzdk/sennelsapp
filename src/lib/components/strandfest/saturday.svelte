@@ -23,6 +23,13 @@
             </Table.Cell>
         </Table.Row>
         <Table.Row>
+            <Table.Cell class="font-medium text-center">1330</Table.Cell>
+            <Table.Cell>
+                <b>HØSGU Teknikholdet</b><br/>
+                Springglade børn 3-7 Klasse laver opvisning, hvis vejret tillader det 🌞 ☔<br/>
+            </Table.Cell>
+        </Table.Row>        
+        <Table.Row>
             <Table.Cell class="font-medium text-center">1430</Table.Cell>
             <Table.Cell>
                 <p class="whitespace-normal">
