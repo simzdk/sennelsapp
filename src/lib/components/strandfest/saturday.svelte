@@ -1,7 +1,9 @@
 <script lang="ts">
 	import * as Table from '$lib/components/ui/table';
     import Icon_time from '$lib/components/icons/icon_time.svelte';
+
 </script>
+
 <Table.Root>
     <Table.Header>
         <Table.Row class="bg-gray-100 text-secondary-foreground">
@@ -17,16 +19,20 @@
         <Table.Row>
             <Table.Cell class="font-medium text-center">1300</Table.Cell>
             <Table.Cell>
-                <b>Loppemarked / Bagagerumssalg</b><br/>
-                Alle private kan deltage.<br/>
-                Festpladsen åbner med alle aktiviteer 🎉<br/>
+                <p class="whitespace-normal">
+                    <b>Loppemarked / Bagagerumssalg</b><br/>
+                    Alle private kan deltage.<br/>
+                    Festpladsen åbner med alle aktiviteer 🎉<br/>
+                </p>
             </Table.Cell>
         </Table.Row>
         <Table.Row>
             <Table.Cell class="font-medium text-center">1330</Table.Cell>
             <Table.Cell>
-                <b>HØSGU Teknikholdet</b><br/>
-                Springglade børn 3-7 Klasse laver opvisning, hvis vejret tillader det 🌞 ☔<br/>
+                <p class="whitespace-normal">
+                    <b>HØSGU Teknikholdet</b><br/>
+                    Springglade børn 3-7 Klasse laver opvisning, hvis vejret tillader det 🌞 ☔<br/>
+                </p>
             </Table.Cell>
         </Table.Row>        
         <Table.Row>
