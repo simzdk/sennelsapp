@@ -46,14 +46,16 @@
     </div>
 
     <div class="mt-3 grid gap-2">
-        {#each checklistItems as item}
-            <button
-                type="button"
-                class={`rounded-2xl border px-3 py-2 text-left shadow-sm transition active:scale-[0.99] ${
-                    checked[item.id]
-                        ? 'border-emerald-200 bg-emerald-50 text-slate-500'
-                        : 'border-slate-200 bg-white text-slate-950 hover:border-orange-300'
-                }`}
+		{#each checklistItems as item}
+			<button
+				type="button"
+				class={`rounded-2xl border px-3 py-2 text-left shadow-sm transition active:scale-[0.99] ${
+					checked[item.id]
+						? 'border-emerald-200 bg-emerald-50 text-slate-500'
+						: item.deadline
+							? 'border-orange-200 bg-orange-50 text-slate-950 hover:border-orange-300'
+							: 'border-slate-200 bg-white text-slate-950 hover:border-orange-300'
+				}`}
                 onclick={() => toggle(item.id)}
             >
                 <div class="flex gap-2.5">
@@ -66,15 +68,20 @@
 					>
 						{checked[item.id] ? '✓' : ''}
                     </div>
-                    <div>
-                        <div class="flex items-start justify-between gap-2">
-                            <h3 class={`text-sm font-bold leading-tight ${checked[item.id] ? 'line-through' : ''}`}>{item.title}</h3>
-                            <span class="w-fit shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-800">
-                                {item.deadline ? daysUntil(item.deadline) : item.due}
-                            </span>
-                        </div>
-                        <p class="mt-0.5 text-xs leading-snug text-slate-600">{item.detail}</p>
-                    </div>
+					<div class="min-w-0 flex-1">
+						<div class="grid grid-cols-[1fr_auto] items-start gap-2">
+							<h3 class={`text-sm font-bold leading-tight ${checked[item.id] ? 'line-through' : ''}`}>{item.title}</h3>
+							<div class="text-right">
+								<span class={`inline-block w-fit shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold ${item.deadline ? 'bg-orange-200 text-orange-900' : 'bg-amber-100 text-amber-800'}`}>
+									{item.deadline ? daysUntil(item.deadline) : item.due}
+								</span>
+								{#if item.deadline}
+									<div class="mt-0.5 text-[10px] font-semibold text-slate-500">senest 14/6</div>
+								{/if}
+							</div>
+						</div>
+						<p class="mt-0.5 text-xs leading-snug text-slate-600">{item.detail}</p>
+					</div>
                 </div>
             </button>
         {/each}

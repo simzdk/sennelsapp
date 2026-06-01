@@ -17,15 +17,23 @@
 
 			<button
 				type="button"
-				class="mt-5 flex w-full items-center justify-between rounded-2xl bg-slate-950 px-4 py-3 text-left text-white shadow-sm active:scale-[0.99]"
+				class="mt-5 flex w-full items-center justify-between rounded-2xl bg-cyan-600 px-4 py-3 text-left text-white shadow-sm active:scale-[0.99]"
 				onclick={openChecklist}
 			>
 				<span>
 					<span class="block text-sm font-bold">Åbn huskeliste</span>
 					<span class="text-xs text-white/70">{remaining} punkt{remaining === 1 ? '' : 'er'} mangler</span>
 				</span>
-				<span class="rounded-full bg-white px-3 py-1 text-sm font-black text-slate-950">{remaining}</span>
+				<span class="rounded-full bg-white px-3 py-1 text-sm font-black text-cyan-700">{remaining}</span>
 			</button>
+
+			<div class="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-3">
+				<h3 class="text-sm font-black text-slate-950">Tilføj til hjemmeskærm</h3>
+				<div class="mt-2 grid gap-2 text-xs leading-snug text-slate-600 sm:grid-cols-2">
+					<p><b>iPhone:</b> Åbn i Safari, tryk Del, vælg “Føj til hjemmeskærm”.</p>
+					<p><b>Android:</b> Åbn i Chrome, tryk ⋮, vælg “Føj til startskærm”.</p>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>

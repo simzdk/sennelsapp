@@ -88,14 +88,14 @@
 		</div>
 		<div class="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 shadow-[0_-8px_30px_rgba(15,23,42,0.12)] backdrop-blur">
 			<Tabs.List class="grid h-auto w-full grid-cols-8 gap-1 rounded-none bg-transparent p-0">
-				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl px-1 text-[10px] leading-tight" value="home"><span>Info</span><span>2026</span></Tabs.Trigger>
+				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl bg-cyan-50 px-1 text-[10px] leading-tight text-cyan-950 data-[state=active]:bg-cyan-600 data-[state=active]:ring-cyan-200" value="home"><span>Info</span><span>2026</span></Tabs.Trigger>
 				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl px-1 text-[10px] leading-tight" value="wednesday"><span>Ons</span><span>17/6</span></Tabs.Trigger>
 				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl px-1 text-[10px] leading-tight" value="thursday"><span>Tor</span><span>18/6</span></Tabs.Trigger>
 				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl px-1 text-[10px] leading-tight" value="friday"><span>Fre</span><span>19/6</span></Tabs.Trigger>
 				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl px-1 text-[10px] leading-tight" value="saturday"><span>Lør</span><span>20/6</span></Tabs.Trigger>
 				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl px-1 text-[10px] leading-tight" value="sunday"><span>Søn</span><span>21/6</span></Tabs.Trigger>
 				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl px-1 text-[10px] leading-tight" value="tuesday"><span>Tir</span><span>23/6</span></Tabs.Trigger>
-				<Tabs.Trigger class="relative h-12 min-w-0 flex-col rounded-xl bg-amber-100 px-1 text-[10px] leading-tight text-amber-900" value="remember">
+				<Tabs.Trigger class="relative h-12 min-w-0 flex-col rounded-xl bg-amber-100 px-1 text-[10px] leading-tight text-amber-900 data-[state=active]:bg-amber-500 data-[state=active]:ring-amber-200" value="remember">
 					<span>Husk</span>
 					<span class="mt-0.5 rounded-full bg-slate-950 px-1.5 py-0.5 text-[9px] font-black text-white">{remaining}</span>
 				</Tabs.Trigger>
