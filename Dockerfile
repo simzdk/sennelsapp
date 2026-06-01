@@ -21,4 +21,4 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --prod --frozen-lockfile --ignore-scripts
 COPY --from=build /app/build ./build
 EXPOSE 3000
-CMD ["node", "build"]
+CMD ["sh", "-c", "HOST=0.0.0.0 PORT=3000 node build"]
