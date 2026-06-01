@@ -31,28 +31,11 @@
 				<h3 class="text-sm font-black text-slate-950">Tilføj til hjemmeskærm</h3>
 				<div class="mt-2 grid gap-2 text-xs leading-snug text-slate-600 sm:grid-cols-2">
 					<div class="rounded-xl bg-white p-2 shadow-sm">
-						<svg viewBox="0 0 180 92" class="mb-2 h-20 w-full rounded-lg bg-sky-50" role="img" aria-label="iPhone guide">
-							<rect x="56" y="8" width="68" height="76" rx="10" fill="#0f172a" />
-							<rect x="60" y="14" width="60" height="64" rx="6" fill="#fff7ed" />
-							<rect x="70" y="23" width="40" height="6" rx="3" fill="#f97316" />
-							<rect x="74" y="62" width="32" height="9" rx="4" fill="#0891b2" />
-							<path d="M90 37v18m0-18l-7 7m7-7l7 7" stroke="#0f172a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-							<circle cx="128" cy="31" r="13" fill="#0891b2" />
-							<path d="M123 31h10m-5-5v10" stroke="white" stroke-width="3" stroke-linecap="round" />
-						</svg>
+						<img src="/guide-ios-home-screen.svg" alt="iPhone: Safari del-menu med Føj til hjemmeskærm markeret" class="mb-2 h-auto w-full rounded-lg" loading="lazy" />
 						<p><b>iPhone:</b> Åbn i Safari, tryk Del, vælg “Føj til hjemmeskærm”.</p>
 					</div>
 					<div class="rounded-xl bg-white p-2 shadow-sm">
-						<svg viewBox="0 0 180 92" class="mb-2 h-20 w-full rounded-lg bg-emerald-50" role="img" aria-label="Android guide">
-							<rect x="56" y="8" width="68" height="76" rx="10" fill="#14532d" />
-							<rect x="60" y="14" width="60" height="64" rx="6" fill="#f0fdf4" />
-							<circle cx="110" cy="25" r="3" fill="#14532d" />
-							<circle cx="110" cy="36" r="3" fill="#14532d" />
-							<circle cx="110" cy="47" r="3" fill="#14532d" />
-							<rect x="71" y="57" width="38" height="12" rx="5" fill="#16a34a" />
-							<circle cx="128" cy="31" r="13" fill="#16a34a" />
-							<path d="M123 31h10m-5-5v10" stroke="white" stroke-width="3" stroke-linecap="round" />
-						</svg>
+						<img src="/guide-android-home-screen.svg" alt="Android: Chrome menu med Føj til startskærm markeret" class="mb-2 h-auto w-full rounded-lg" loading="lazy" />
 						<p><b>Android:</b> Åbn i Chrome, tryk ⋮, vælg “Føj til startskærm”.</p>
 					</div>
 				</div>
