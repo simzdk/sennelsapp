@@ -8,30 +8,30 @@
 	import Saturday from '$lib/components/strandfest/saturday.svelte';
 	import Sunday from '$lib/components/strandfest/sunday.svelte';
 	import Tuesday from '$lib/components/strandfest/tuesday.svelte';
+	import Landing from '$lib/components/strandfest/landing.svelte';
 	import Remember from '$lib/components/strandfest/remember.svelte';
 
 	let today = new Date();
-	let dayValue = $state('friday');
+	let dayValue = $state('home');
 	let checked = $state<Record<string, boolean>>({});
 
 	const completed = $derived(checklistItems.filter((item) => checked[item.id]).length);
 	const remaining = $derived(checklistItems.length - completed);
 
-	// Get the current day of week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-	const dayOfWeek = today.getDay();
+	const currentFestivalDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
 
-	if (dayOfWeek === 3) {
+	if (currentFestivalDate === '2026-6-17') {
 		dayValue = 'wednesday';
-	} else if (dayOfWeek === 4) {
+	} else if (currentFestivalDate === '2026-6-18') {
 		dayValue = 'thursday';
-	} else if (dayOfWeek === 6) {
-		dayValue = 'saturday';
-	} else if (dayOfWeek === 0) {
-		dayValue = 'sunday';
-	} else if (dayOfWeek === 2) {
-		dayValue = 'tuesday';
-	} else {
+	} else if (currentFestivalDate === '2026-6-19') {
 		dayValue = 'friday';
+	} else if (currentFestivalDate === '2026-6-20') {
+		dayValue = 'saturday';
+	} else if (currentFestivalDate === '2026-6-21') {
+		dayValue = 'sunday';
+	} else if (currentFestivalDate === '2026-6-23') {
+		dayValue = 'tuesday';
 	}
 
 	onMount(() => {
@@ -48,6 +48,10 @@
 		checked = {};
 		localStorage.removeItem(checklistStorageKey);
 	}
+
+	function openChecklist() {
+		dayValue = 'remember';
+	}
 </script>
 
 <div class="min-h-screen bg-gradient-to-b from-orange-50 via-white to-cyan-50 px-2 pb-24 pt-3">
@@ -55,8 +59,11 @@
 		<p class="text-sm font-bold uppercase tracking-[0.25em] text-orange-700">17. - 23. juni 2026</p>
 		<h1 class="mt-2 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">Malle Strandfest</h1>
 	</header>
-	<Tabs.Root value={dayValue}>
+	<Tabs.Root bind:value={dayValue}>
 		<div class="mx-auto mt-5 w-full max-w-3xl rounded-3xl bg-white/85 p-3 shadow-sm ring-1 ring-black/5 xl:max-w-3xl">
+			<Tabs.Content value="home">
+				<Landing {remaining} openChecklist={openChecklist} />
+			</Tabs.Content>
 			<Tabs.Content value="wednesday">
 				<Wednesday />
 			</Tabs.Content>
@@ -80,7 +87,8 @@
 			</Tabs.Content>
 		</div>
 		<div class="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 shadow-[0_-8px_30px_rgba(15,23,42,0.12)] backdrop-blur">
-			<Tabs.List class="grid h-auto w-full grid-cols-7 gap-1 rounded-none bg-transparent p-0">
+			<Tabs.List class="grid h-auto w-full grid-cols-8 gap-1 rounded-none bg-transparent p-0">
+				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl px-1 text-[10px] leading-tight" value="home"><span>Info</span><span>2026</span></Tabs.Trigger>
 				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl px-1 text-[10px] leading-tight" value="wednesday"><span>Ons</span><span>17/6</span></Tabs.Trigger>
 				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl px-1 text-[10px] leading-tight" value="thursday"><span>Tor</span><span>18/6</span></Tabs.Trigger>
 				<Tabs.Trigger class="h-12 min-w-0 flex-col rounded-xl px-1 text-[10px] leading-tight" value="friday"><span>Fre</span><span>19/6</span></Tabs.Trigger>

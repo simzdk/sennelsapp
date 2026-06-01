@@ -64,16 +64,4 @@
         </Table.Row>                     
     </Table.Body>
 </Table.Root>
-
-<div class="mt-4 space-y-3 text-sm">
-	<p class="whitespace-normal">
-		<b>Tilmelding til børnefest</b><br />
-		Tilmelding til Børnefesten sker ved MobilePay overførsel af 30 kr. til “5930RK” - husk
-		at angive barnets navn og klasse. Tilmelding senest 14/6.
-	</p>
-	<p class="whitespace-normal">
-		<b>Tilmelding til aftenbuffeter eller brunch</b><br />
-		Helle Kilsgaard, Tlf: 61 74 45 12, Mail: fam.kilsgaard@gmail.com
-	</p>
-</div>
 </div>
