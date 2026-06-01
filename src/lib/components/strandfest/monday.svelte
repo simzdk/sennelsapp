@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Table from '$lib/components/ui/table';
-    import Icon_time from '$lib/components/icons/icon_time.svelte';
+	import Icon_time from '$lib/components/icons/icon_time.svelte';
 </script>
 <Table.Root>
     <Table.Header>
@@ -16,37 +16,37 @@
     <Table.Body>
         <Table.Row>
             <Table.Cell class="font-medium text-center">
-                1800
+                18:00
             </Table.Cell>
             <Table.Cell>
                 Grillteltet åbner.<br/>
             </Table.Cell>
         </Table.Row>
         <Table.Row>
-            <Table.Cell class="font-medium text-center">1830</Table.Cell>
+            <Table.Cell class="font-medium text-center">18:30</Table.Cell>
             <Table.Cell>
                 <p class="whitespace-normal">
-                    <b>Båltaler: Annika Frækjær, Ventre, Kommunalvalg kandidat</b><br/>
+                    <b>Båltaler: Nicolai Møller(I), Formand for Social- og Seniorudvalget</b><br/>
                     Kåring af årets Sennels-bo ✨
                 </p>
             </Table.Cell>
         </Table.Row>        
         <Table.Row>
-            <Table.Cell class="font-medium text-center">1900</Table.Cell>
+            <Table.Cell class="font-medium text-center">19:00</Table.Cell>
             <Table.Cell>
-                <b>Skt. Hans-bålet tændes og heksen brændes.</b><br/>
+                <b>Skt. Hans-bålet tændes og ”heksen” brændes.</b><br/>
                 
             </Table.Cell>
         </Table.Row>
         <Table.Row>
-            <Table.Cell class="font-medium text-center">1930</Table.Cell>
+            <Table.Cell class="font-medium text-center">19:30</Table.Cell>
             <Table.Cell>
                 <b>Stort kagebord 🍰</b><br/>
-                Det store kagebord i teltet til 40 kr inkl. kaffe ☕                
+                Det store kagebord i teltet til 40 kr. inkl. kaffe ☕
             </Table.Cell>
         </Table.Row>                
         <Table.Row>
-            <Table.Cell class="font-medium text-center">2100</Table.Cell>
+            <Table.Cell class="font-medium text-center">21:00</Table.Cell>
             <Table.Cell>
                 Tak for i år 💗
             </Table.Cell>

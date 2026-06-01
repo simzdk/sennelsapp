@@ -4,11 +4,10 @@
 
     // 1. Schedule as array
     const schedule = [
-        { time: 1300, displaytime: '13:00', desc: `<b>Loppemarked / Bagagerumssalg</b><br/>Alle private kan deltage.<br/>Festpladsen åbner med alle aktiviteer 🎉<br/>` },
-        { time: 1330, displaytime: '13:30', desc: `<b>HØSGU Teknikholdet</b><br/>Springglade børn 3-7 Klasse laver opvisning, hvis vejret tillader det 🌞 ☔<br/>` },
-        { time: 1430, displaytime: '14:30', desc: `<b>Børne-Skumparty</b><br/>Skumparty på stranden med musik og kæmpe skum-anlæg. Husk tørt tøj.<br/>` },
-        { time: 1830, displaytime: '18:30–20:30', desc: `<b>Grisefest 🐷</b><br/>Helstegt gris med tilbehør fra "Den Gamle Slagter"<br/>Pris 250 kr. Betaling skal ske via MobilePay ved tilmelding.<br/>MobilePay Nr: 666235<br/>Husk også skriftlig tilmelding ved til Helle.<br/>Betaling via MobilePay er ikke nok<br/><br/>Cocktailbar<br/>Musik & Dans<br/>` },
-        { time: 130,  displaytime: '01:30', desc: `Tak for i dag.` }
+        { time: 1300, displaytime: '13:00', desc: `<b>Loppemarked/bagagerumssalg</b><br/>Alle private kan deltage.<br/>Festpladsen åbner med alle aktiviteter.<br/><br/>Spejderne er at finde på pladsen, kig forbi.<br/>` },
+        { time: 1400, displaytime: '14:00', desc: `<b>Børne-skumparty</b><br/>Skumparty på stranden med musik og kæmpe skumanlæg. Husk tørt tøj.<br/>` },
+        { time: 1830, displaytime: '18:30', desc: `<b>Grisefest</b><br/>Helstegt gris med tilbehør fra Den Gamle Slagter.<br/>Pris 250 kr. Betaling skal ske via MobilePay ved tilmelding.<br/>MobilePay nr. 666235<br/>HUSK OGSÅ SKRIFTLIG TILMELDING TIL HELLE<br/>Betaling via MobilePay er ikke nok.<br/><br/>Cocktailbar<br/>Musik og dans<br/>v/ Starstruck 10 mands orkester<br/>` },
+        { time: 130, displaytime: '01:30', desc: `Tak for i dag.` }
     ];
 
 function normalizeTime(time: number): number {

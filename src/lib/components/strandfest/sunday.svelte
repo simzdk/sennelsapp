@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Table from '$lib/components/ui/table';
-    import Icon_time from '$lib/components/icons/icon_time.svelte';
+	import Icon_time from '$lib/components/icons/icon_time.svelte';
 </script>
 <Table.Root>
     <Table.Header>
@@ -16,9 +16,9 @@
     <Table.Body>
         <Table.Row>
             <Table.Cell class="font-medium text-center">
-                1030<br>
+                 10:30<br>
                 |<br/>
-                1230
+                12:30
             </Table.Cell>
             <Table.Cell>
                 <p class="whitespace-normal">
@@ -27,15 +27,15 @@
                     Billetter købes ved indgangen. Tilmelding tilrådes.<br/>
                     <br/>
 
-                    Festpladsen åbner med alle aktiviteer 🎉<br/>
+                    Festpladsen åbner med alle aktiviteter.<br/>
                 </p>
             </Table.Cell>
         </Table.Row>
         <Table.Row>
-            <Table.Cell class="font-medium text-center">1430</Table.Cell>
+            <Table.Cell class="font-medium text-center">14:30</Table.Cell>
             <Table.Cell>
                 <b>Musik i teltet</b><br/>
-                v/ Heskjær and the Hangovers<br/>
+                v/ Heskjær and the hangovers<br/>
             </Table.Cell>
         </Table.Row>        
     </Table.Body>
