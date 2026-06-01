@@ -116,7 +116,7 @@
 		@apply border-border outline-ring/50;
 	}
 	body {
-		@apply bg-orange-50 text-foreground;
+		@apply bg-cyan-50 text-foreground;
 	}
 	html,
 	body {
