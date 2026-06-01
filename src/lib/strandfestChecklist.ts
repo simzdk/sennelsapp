@@ -5,7 +5,8 @@ export const checklistItems = [
 		id: 'child-party-payment',
 		title: 'Tilmeld børnefest',
 		detail: 'MobilePay 30 kr. til 5930RK. Husk barnets navn og klasse.',
-		due: 'Senest 14/6'
+		due: 'Senest 14/6',
+		deadline: '2026-06-14'
 	},
 	{
 		id: 'buffet-brunch-registration',

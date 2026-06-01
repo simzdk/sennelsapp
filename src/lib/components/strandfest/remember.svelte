@@ -8,6 +8,21 @@
 		toggle: (id: string) => void;
 		reset: () => void;
 	}>();
+
+	function daysUntil(deadline?: string) {
+		if (!deadline) return '';
+
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+
+		const target = new Date(`${deadline}T00:00:00`);
+		const days = Math.ceil((target.getTime() - today.getTime()) / 86400000);
+
+		if (days < 0) return 'frist overskredet';
+		if (days === 0) return 'sidste dag';
+		if (days === 1) return '1 dag tilbage';
+		return `${days} dage tilbage`;
+	}
 </script>
 
 <section class="mx-auto max-w-2xl px-1 pb-4">
@@ -55,7 +70,7 @@
                         <div class="flex items-start justify-between gap-2">
                             <h3 class={`text-sm font-bold leading-tight ${checked[item.id] ? 'line-through' : ''}`}>{item.title}</h3>
                             <span class="w-fit shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-800">
-                                {item.due}
+                                {item.deadline ? daysUntil(item.deadline) : item.due}
                             </span>
                         </div>
                         <p class="mt-0.5 text-xs leading-snug text-slate-600">{item.detail}</p>
