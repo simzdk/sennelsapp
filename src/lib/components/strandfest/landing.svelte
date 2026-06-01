@@ -12,25 +12,20 @@
 			<div class="absolute -bottom-16 -left-10 size-32 rounded-full bg-[#BFDA6B]/25"></div>
 
 			<div class="relative">
-				<p class="text-xs font-bold uppercase tracking-[0.22em] text-[#189A96]">Malle Strandfest</p>
-				<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Program 2026</h2>
+				<h2 class="text-3xl font-black leading-tight text-slate-950">Program 2026</h2>
 				<p class="mt-3 text-sm leading-relaxed text-slate-600">
 					Alt det vigtigste samlet ét sted: dagens program, praktiske tider og din personlige
 					huskeliste til tilmelding og betaling.
 				</p>
 
-				<div class="mt-4 grid grid-cols-3 gap-2 text-center">
+				<div class="mt-4 grid grid-cols-2 gap-2 text-center">
 					<div class="rounded-2xl bg-[#EBF1C8]/70 px-2 py-3 ring-1 ring-[#BFDA6B]/40">
 						<div class="text-lg font-black text-slate-950">6</div>
-						<div class="text-[10px] font-bold uppercase tracking-wide text-slate-600">dage</div>
+						<div class="text-[10px] font-bold uppercase tracking-wide text-slate-600">festdage</div>
 					</div>
 					<div class="rounded-2xl bg-[#52C4C1]/15 px-2 py-3 ring-1 ring-[#52C4C1]/30">
-						<div class="text-lg font-black text-slate-950">17.-23.</div>
-						<div class="text-[10px] font-bold uppercase tracking-wide text-slate-600">juni</div>
-					</div>
-					<div class="rounded-2xl bg-orange-50 px-2 py-3 ring-1 ring-orange-100">
-						<div class="text-lg font-black text-slate-950">{remaining}</div>
-						<div class="text-[10px] font-bold uppercase tracking-wide text-slate-600">husk</div>
+						<div class="text-lg font-black text-slate-950">30+</div>
+						<div class="text-[10px] font-bold uppercase tracking-wide text-slate-600">programpunkter</div>
 					</div>
 				</div>
 

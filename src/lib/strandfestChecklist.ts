@@ -23,7 +23,7 @@ export const checklistItems: ChecklistItem[] = [
 		due: 'Senest 14/6',
 		deadline: '2026-06-14',
 		actions: [
-			{ label: 'Åbn MobilePay', href: 'https://mobilepay.dk/box?id=5930RK' },
+			{ label: 'Åbn MobilePay', href: 'mobilepay://send?phone=5930RK&amount=30' },
 			{ label: 'Kopiér MobilePay', value: '5930RK' },
 			{ label: 'Kopiér beløb', value: '30 kr.' }
 		]
@@ -46,7 +46,7 @@ export const checklistItems: ChecklistItem[] = [
 		detail: 'MobilePay 250 kr. pr. person til 666235.',
 		due: 'Ved tilmelding',
 		actions: [
-			{ label: 'Åbn MobilePay', href: 'https://mobilepay.dk/box?id=666235' },
+			{ label: 'Åbn MobilePay', href: 'mobilepay://send?phone=666235&amount=250' },
 			{ label: 'Kopiér MobilePay', value: '666235' },
 			{ label: 'Kopiér beløb', value: '250 kr.' }
 		]
