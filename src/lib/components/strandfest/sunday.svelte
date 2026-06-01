@@ -4,7 +4,7 @@
 </script>
 <Table.Root>
     <Table.Header>
-        <Table.Row class="bg-gray-100 text-secondary-foreground">
+        <Table.Row>
             <Table.Head class="w-[75px]">
                 <div class="flex justify-center items-center w-full h-full">
                     <Icon_time/>
