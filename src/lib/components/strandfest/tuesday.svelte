@@ -1,0 +1,47 @@
+<script lang="ts">
+	import * as Table from '$lib/components/ui/table';
+	import Icon_time from '$lib/components/icons/icon_time.svelte';
+</script>
+
+<Table.Root>
+	<Table.Header>
+		<Table.Row>
+			<Table.Head class="w-[75px]">
+				<div class="flex h-full w-full items-center justify-center">
+					<Icon_time />
+				</div>
+			</Table.Head>
+			<Table.Head>Beskrivelse</Table.Head>
+		</Table.Row>
+	</Table.Header>
+	<Table.Body>
+		<Table.Row>
+			<Table.Cell class="text-center font-medium">18:00</Table.Cell>
+			<Table.Cell>Grillteltet åbner.</Table.Cell>
+		</Table.Row>
+		<Table.Row>
+			<Table.Cell class="text-center font-medium">18:30</Table.Cell>
+			<Table.Cell>
+				<p class="whitespace-normal">
+					<b>Båltaler: Nicolai Møller(I), Formand for Social- og Seniorudvalget</b><br />
+					Kåring af årets Sennels-bo ✨
+				</p>
+			</Table.Cell>
+		</Table.Row>
+		<Table.Row>
+			<Table.Cell class="text-center font-medium">19:00</Table.Cell>
+			<Table.Cell><b>Skt. Hans-bålet tændes og ”heksen” brændes.</b></Table.Cell>
+		</Table.Row>
+		<Table.Row>
+			<Table.Cell class="text-center font-medium">19:30</Table.Cell>
+			<Table.Cell>
+				<b>Stort kagebord 🍰</b><br />
+				Det store kagebord i teltet til 40 kr. inkl. kaffe ☕
+			</Table.Cell>
+		</Table.Row>
+		<Table.Row>
+			<Table.Cell class="text-center font-medium">21:00</Table.Cell>
+			<Table.Cell>Tak for i år 💗</Table.Cell>
+		</Table.Row>
+	</Table.Body>
+</Table.Root>

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import * as Table from '$lib/components/ui/table';
-    import Icon_time from '$lib/components/icons/icon_time.svelte';
+	import Icon_time from '$lib/components/icons/icon_time.svelte';
 </script>
 <div class="wrap-break-word">
 <Table.Root>
     <Table.Header>
-        <Table.Row class="bg-gray-100 text-secondary-foreground">
+        <Table.Row>
             <Table.Head class="w-[75px]">
                 <div class="flex justify-center items-center w-full h-full">
                     <Icon_time/>
@@ -17,48 +17,47 @@
     <Table.Body>
         <Table.Row>
             <Table.Cell class="font-medium text-center">
-                1600<br>
+                15:45<br>
                 |<br/>
-                1800</Table.Cell>
+                18:00</Table.Cell>
             <Table.Cell>
                 <b>Børnefest</b><br/>
                 Fest inkl. børnedrinks fra baren og snacks.<br/> 
-                Fra 0. - 6 klasse. <br/> 
+                Fra 0. - 6. klasse. <br/>
                 Pris: 30 kr. <br/> 
                 Tilmelding påkrævet. Se nedenfor. <br/> 
             </Table.Cell>
         </Table.Row>
         <Table.Row>
-            <Table.Cell class="font-medium text-center">1830</Table.Cell>
+            <Table.Cell class="font-medium text-center">18:30</Table.Cell>
             <Table.Cell>
                 <p class="whitespace-normal">
                     <b>Fællesspisning</b><br/>
-                    Boller i karry - Pris 65 kr pr person. Børn under 3 år gratis.<br/> 
+                    Mallegryde - Pris 75 kr. pr. pers. Børn under 3 år gratis.<br/>
                     (Bestil gerne hos Helle.)<br/>
-                    Festpladsen åbner med hoppeborg, karrusel, tombola, pølser, is, slikvogn, grilltelt og det store øltelt.<br/>
+                    Festpladsen åbner.<br/>
                 </p>
             </Table.Cell>
         </Table.Row>        
         <Table.Row>
-            <Table.Cell class="font-medium text-center">1930</Table.Cell>
+            <Table.Cell class="font-medium text-center">19:30</Table.Cell>
             <Table.Cell>
                 <p class="whitespace-normal">
-                    <b>⭐ for en aften</b><br/>
+                    <b>Stjerne for en aften</b><br/>
                     Lokale Sennelsboere går på scenen og giver et nummer.<br/>
                 </p>
             </Table.Cell>
         </Table.Row>             
         <Table.Row>
-            <Table.Cell class="font-medium text-center">2200</Table.Cell>
+            <Table.Cell class="font-medium text-center">19:30</Table.Cell>
             <Table.Cell>
                 <p class="whitespace-normal">
-                    <b>🎵 Jam Band Joggling 🎵</b><br/>
-                    En gang om året vækkes Jam Band Joggling til live, og det skal man ikke gå glip af. Vi ses i teltet! <br/>
+                    Jam Band Joggling spiller bar-musik.<br/>
                 </p>
             </Table.Cell>
         </Table.Row>                     
         <Table.Row>
-            <Table.Cell class="font-medium text-center">0100</Table.Cell>
+            <Table.Cell class="font-medium text-center">01:00</Table.Cell>
             <Table.Cell>
                 Tak for i dag. 
             </Table.Cell>
