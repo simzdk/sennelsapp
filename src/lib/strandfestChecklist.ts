@@ -55,8 +55,8 @@ export const checklistItems: ChecklistItem[] = [
 	},
 	{
 		id: 'brunch-ticket',
-		title: 'Køb brunchbilletter ved indgangen',
-		detail: 'Brunch koster 130 kr. Børn under 8 år halv pris. Tilmelding tilrådes.',
+		title: 'Husk brunchbilletter',
+		detail: 'Brunch koster 130 kr. Børn under 8 år halv pris. Giv også Helle besked om tilmelding.',
 		due: 'Søndag 21/6'
 	}
 ];
