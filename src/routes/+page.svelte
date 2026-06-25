@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
+	import { enhance } from '$app/forms';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { checklistItems, checklistStorageKey } from '$lib/strandfestChecklist';
 	import Wednesday from '$lib/components/strandfest/wednesday.svelte';
@@ -13,8 +14,11 @@
 	import Remember from '$lib/components/strandfest/remember.svelte';
 
 	let today = new Date();
+	let { form } = $props();
+	let appValue = $state<'menu' | 'strandfest' | 'feedback'>('menu');
 	let dayValue = $state('home');
 	let checked = $state<Record<string, boolean>>({});
+	let feedbackType = $state('good');
 
 	const completed = $derived(checklistItems.filter((item) => checked[item.id]).length);
 	const remaining = $derived(checklistItems.length - completed);
@@ -65,16 +69,118 @@
 	}
 
 	function openChecklist() {
+		appValue = 'strandfest';
 		dayValue = 'remember';
+	}
+
+	function openStrandfest() {
+		appValue = 'strandfest';
+	}
+
+	function openFeedback() {
+		appValue = 'feedback';
 	}
 </script>
 
-<div class="bg-gradient-to-b from-orange-50 via-white to-cyan-50 px-2 pb-20 pt-1">
+<div class="min-h-dvh bg-gradient-to-b from-orange-50 via-white to-cyan-50 px-2 pb-20 pt-1">
 	<header class="mx-auto max-w-4xl px-3 pt-2 text-center">
 		<p class="text-sm font-bold uppercase tracking-[0.25em] text-orange-700">17. - 23. juni 2026</p>
-		<h1 class="mt-2 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">Malle Strandfest</h1>
+		<h1 class="mt-2 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">Sennels App</h1>
 	</header>
+
+	{#if appValue === 'menu'}
+		<main class="mx-auto mt-5 max-w-3xl px-3">
+			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
+				<div class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
+					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Vælg app</p>
+					<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Hvad vil du åbne?</h2>
+					<p class="mt-3 text-sm leading-relaxed text-slate-600">Program, huskeliste og feedback samlet ét sted.</p>
+
+					<div class="mt-6 grid gap-3 sm:grid-cols-2">
+						<button
+							type="button"
+							class="group rounded-3xl bg-[#E1F4F5] p-5 text-left ring-1 ring-[#52C4C1]/35 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99]"
+							onclick={openStrandfest}
+						>
+							<span class="flex size-14 items-center justify-center rounded-2xl bg-[#189A96] text-3xl shadow-sm">📅</span>
+							<span class="mt-5 block text-2xl font-black text-slate-950">Malle Strandfest</span>
+							<span class="mt-2 block text-sm leading-relaxed text-slate-600">Se programmet for alle dage og din huskeliste.</span>
+							<span class="mt-4 inline-flex rounded-full bg-white px-3 py-1 text-xs font-black uppercase tracking-wide text-[#189A96] ring-1 ring-[#52C4C1]/30">Åbn program</span>
+						</button>
+
+						<button
+							type="button"
+							class="group rounded-3xl bg-[#FFF4E7] p-5 text-left ring-1 ring-[#C77D39]/25 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99]"
+							onclick={openFeedback}
+						>
+							<span class="flex size-14 items-center justify-center rounded-2xl bg-[#C77D39] text-3xl shadow-sm">💬</span>
+							<span class="mt-5 block text-2xl font-black text-slate-950">Feedback</span>
+							<span class="mt-2 block text-sm leading-relaxed text-slate-600">Fortæl os hvad der virker, kan forbedres eller bør prøves.</span>
+							<span class="mt-4 inline-flex rounded-full bg-white px-3 py-1 text-xs font-black uppercase tracking-wide text-[#C77D39] ring-1 ring-[#C77D39]/25">Giv feedback</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</main>
+	{:else if appValue === 'feedback'}
+		<main class="mx-auto mt-5 max-w-2xl px-3">
+			<button type="button" class="mb-3 rounded-full bg-white px-4 py-2 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/30" onclick={() => (appValue = 'menu')}>← Tilbage til menu</button>
+			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
+				<form method="POST" action="?/feedback" use:enhance class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
+					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Feedback</p>
+					<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Hvad synes du?</h2>
+					<p class="mt-3 text-sm leading-relaxed text-slate-600">Din besked hjælper os med at gøre Sennels App bedre.</p>
+
+					{#if form?.feedbackSuccess}
+						<div class="mt-5 rounded-2xl bg-[#E1F4F5] px-4 py-3 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/35">Tak for din feedback. Den er sendt.</div>
+					{:else if form?.feedbackError}
+						<div class="mt-5 rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-700 ring-1 ring-red-100">{form.feedbackError}</div>
+					{/if}
+
+					<div class="mt-5 grid gap-3 sm:grid-cols-2">
+						<label class="grid gap-1 text-sm font-bold text-slate-700">
+							Navn <span class="font-normal text-slate-400">(valgfrit)</span>
+							<input class="rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]" name="name" autocomplete="name" value={form?.name ?? ''} />
+						</label>
+						<label class="grid gap-1 text-sm font-bold text-slate-700">
+							Email <span class="font-normal text-slate-400">(valgfrit)</span>
+							<input class="rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]" name="email" type="email" autocomplete="email" value={form?.email ?? ''} />
+						</label>
+					</div>
+
+					<fieldset class="mt-5">
+						<legend class="text-sm font-bold text-slate-700">Vælg type</legend>
+						<div class="mt-2 grid gap-2 sm:grid-cols-3">
+							<label class="cursor-pointer rounded-2xl bg-[#E1F4F5] p-3 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#189A96]">
+								<input class="sr-only" type="radio" name="type" value="good" bind:group={feedbackType} />
+								<span class="block text-2xl">🎉</span>
+								<span class="mt-1 block font-black text-[#189A96]">Godt!</span>
+							</label>
+							<label class="cursor-pointer rounded-2xl bg-[#FFF4E7] p-3 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#C77D39]">
+								<input class="sr-only" type="radio" name="type" value="improvement" bind:group={feedbackType} />
+								<span class="block text-2xl">🛠️</span>
+								<span class="mt-1 block font-black text-[#C77D39]">Forbedring</span>
+							</label>
+							<label class="cursor-pointer rounded-2xl bg-[#F3F8DC] p-3 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#6B8F1A]">
+								<input class="sr-only" type="radio" name="type" value="suggestion" bind:group={feedbackType} />
+								<span class="block text-2xl">💡</span>
+								<span class="mt-1 block font-black text-[#6B8F1A]">Forslag</span>
+							</label>
+						</div>
+					</fieldset>
+
+					<label class="mt-5 grid gap-1 text-sm font-bold text-slate-700">
+						Kommentar
+						<textarea class="min-h-36 rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]" name="comment" required placeholder="Skriv din mening her...">{form?.comment ?? ''}</textarea>
+					</label>
+
+					<button type="submit" class="mt-5 w-full rounded-2xl bg-[#189A96] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#137f7b] active:scale-[0.99]">Send</button>
+				</form>
+			</div>
+		</main>
+	{:else}
 	<Tabs.Root bind:value={dayValue}>
+		<button type="button" class="mx-auto mt-4 block rounded-full bg-white px-4 py-2 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/30" onclick={() => (appValue = 'menu')}>← Tilbage til menu</button>
 		<div class="mx-auto mt-3 w-full max-w-3xl rounded-3xl bg-white/85 p-3 shadow-sm ring-1 ring-black/5 xl:max-w-3xl">
 			<Tabs.Content value="home">
 				<Landing {remaining} openChecklist={openChecklist} />
@@ -117,4 +223,5 @@
 			</Tabs.List>
 		</div>
 	</Tabs.Root>
+	{/if}
 </div>
