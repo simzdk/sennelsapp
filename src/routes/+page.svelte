@@ -209,7 +209,7 @@
 							<p class="mt-1 text-xs font-bold text-slate-500">Du skal vælge mindst én type før du kan sende.</p>
 						{/if}
 						<div class="mt-2 grid grid-cols-3 gap-2">
-							<label class="relative cursor-pointer rounded-2xl bg-[#E1F4F5]/70 p-2 text-center text-[#126f6b] ring-2 ring-[#52C4C1]/25 transition has-[:checked]:bg-[#189A96] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#0f6f6b] sm:p-3">
+							<label class="relative cursor-pointer rounded-2xl bg-[#D9F2F1] p-2 text-center text-[#126f6b] ring-2 ring-[#52C4C1]/40 transition has-[:checked]:bg-[#189A96] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#0f6f6b] sm:p-3">
 								<input class="sr-only" type="checkbox" name="type" value="good" checked={feedbackTypes.includes('good')} onchange={() => toggleFeedbackType('good')} />
 								{#if feedbackTypes.includes('good')}
 									<span class="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full bg-white text-sm font-black text-[#189A96] shadow-sm ring-2 ring-white/70">✓</span>
@@ -217,7 +217,7 @@
 								<span class="block text-xl sm:text-2xl">🎉</span>
 								<span class="mt-1 block text-xs font-black sm:text-base">Godt!</span>
 							</label>
-							<label class="relative cursor-pointer rounded-2xl bg-[#FFF4E7]/80 p-2 text-center text-[#9d612c] ring-2 ring-[#C77D39]/20 transition has-[:checked]:bg-[#C77D39] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#8d5727] sm:p-3">
+							<label class="relative cursor-pointer rounded-2xl bg-[#FFE8CC] p-2 text-center text-[#9d612c] ring-2 ring-[#C77D39]/35 transition has-[:checked]:bg-[#C77D39] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#8d5727] sm:p-3">
 								<input class="sr-only" type="checkbox" name="type" value="improvement" checked={feedbackTypes.includes('improvement')} onchange={() => toggleFeedbackType('improvement')} />
 								{#if feedbackTypes.includes('improvement')}
 									<span class="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full bg-white text-sm font-black text-[#C77D39] shadow-sm ring-2 ring-white/70">✓</span>
@@ -225,7 +225,7 @@
 								<span class="block text-xl sm:text-2xl">🛠️</span>
 								<span class="mt-1 block text-xs font-black sm:text-base">Forbedring</span>
 							</label>
-							<label class="relative cursor-pointer rounded-2xl bg-[#F3F8DC]/90 p-2 text-center text-[#527014] ring-2 ring-[#6B8F1A]/20 transition has-[:checked]:bg-[#6B8F1A] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#476013] sm:p-3">
+							<label class="relative cursor-pointer rounded-2xl bg-[#EAF4C2] p-2 text-center text-[#527014] ring-2 ring-[#6B8F1A]/35 transition has-[:checked]:bg-[#6B8F1A] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#476013] sm:p-3">
 								<input class="sr-only" type="checkbox" name="type" value="suggestion" checked={feedbackTypes.includes('suggestion')} onchange={() => toggleFeedbackType('suggestion')} />
 								{#if feedbackTypes.includes('suggestion')}
 									<span class="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full bg-white text-sm font-black text-[#6B8F1A] shadow-sm ring-2 ring-white/70">✓</span>
