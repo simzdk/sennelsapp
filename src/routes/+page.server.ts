@@ -75,6 +75,7 @@ export const actions = {
 
 		const selectedTypes = types.map((type) => feedbackTypes[type]);
 		const primaryType = selectedTypes[0];
+		const typeSummary = selectedTypes.map((type) => type.label).join(' / ');
 		const typeBadges = selectedTypes
 			.map(
 				(type) => `
@@ -115,9 +116,9 @@ export const actions = {
 				body: JSON.stringify({
 					sender: feedbackSender,
 					to: [feedbackRecipient],
-					subject: `Sennels App feedback: ${selectedTypes.map((type) => type.label).join(', ')}`,
+					subject: `Sennels App feedback (${typeSummary})`,
 					html_body: html,
-					text_body: `Ny feedback: ${selectedTypes.map((type) => type.label).join(', ')}\n\nNavn: ${name || 'Ikke oplyst'}\nEmail: ${email || 'Ikke oplyst'}\n\n${comment}`,
+					text_body: `Ny feedback: ${typeSummary}\n\nNavn: ${name || 'Ikke oplyst'}\nEmail: ${email || 'Ikke oplyst'}\n\n${comment}`,
 					custom_headers: email ? [{ header: 'Reply-To', value: email }] : undefined
 				})
 			});
