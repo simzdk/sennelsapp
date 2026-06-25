@@ -18,7 +18,8 @@
 	let appValue = $state<'menu' | 'strandfest' | 'feedback'>('menu');
 	let dayValue = $state('home');
 	let checked = $state<Record<string, boolean>>({});
-	let feedbackType = $state('good');
+	let feedbackTypes = $state<string[]>(['good']);
+	let feedbackSentAt = $state('');
 
 	const completed = $derived(checklistItems.filter((item) => checked[item.id]).length);
 	const remaining = $derived(checklistItems.length - completed);
@@ -80,6 +81,18 @@
 	function openFeedback() {
 		appValue = 'feedback';
 	}
+
+	function handleFeedbackSubmit(formElement: HTMLFormElement) {
+		return async ({ result, update }: { result: { type: string }; update: () => Promise<void> }) => {
+			await update();
+
+			if (result.type === 'success') {
+				feedbackSentAt = new Date().toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
+				formElement.reset();
+				feedbackTypes = ['good'];
+			}
+		};
+	}
 </script>
 
 <div class="min-h-dvh bg-gradient-to-b from-orange-50 via-white to-cyan-50 px-2 pb-20 pt-1">
@@ -128,13 +141,21 @@
 		<main class="mx-auto mt-5 max-w-2xl px-3">
 			<button type="button" class="mb-3 rounded-full bg-white px-4 py-2 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/30" onclick={() => (appValue = 'menu')}>← Tilbage til menu</button>
 			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
-				<form method="POST" action="?/feedback" use:enhance class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
+				<form method="POST" action="?/feedback" use:enhance={handleFeedbackSubmit} class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
 					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Feedback</p>
 					<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Hvad synes du om Malle Strandfest?</h2>
 					<p class="mt-3 text-sm leading-relaxed text-slate-600">Er der noget, der kan gøres bedre næste år? Din besked hjælper os med at gøre festen endnu bedre.</p>
 
 					{#if form?.feedbackSuccess}
-						<div class="mt-5 rounded-2xl bg-[#E1F4F5] px-4 py-3 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/35">Tak for din feedback. Den er sendt.</div>
+						<div class="mt-5 rounded-3xl bg-[#E1F4F5] p-4 text-[#189A96] ring-1 ring-[#52C4C1]/35">
+							<p class="text-lg font-black">Tak for din feedback!</p>
+							<p class="mt-2 text-sm leading-relaxed text-slate-700">
+								Det er virkelig dejligt, at du tager dig tid til at skrive. Din feedback hjælper med at sikre, at vi får en endnu bedre Malle Strandfest næste år.
+							</p>
+							{#if feedbackSentAt}
+								<p class="mt-3 inline-flex rounded-full bg-white px-3 py-1 text-xs font-black text-[#189A96] ring-1 ring-[#52C4C1]/30">Sendt kl. {feedbackSentAt}</p>
+							{/if}
+						</div>
 					{:else if form?.feedbackError}
 						<div class="mt-5 rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-700 ring-1 ring-red-100">{form.feedbackError}</div>
 					{/if}
@@ -151,20 +172,20 @@
 					</div>
 
 					<fieldset class="mt-5">
-						<legend class="text-sm font-bold text-slate-700">Vælg type</legend>
+						<legend class="text-sm font-bold text-slate-700">Vælg en eller flere typer</legend>
 						<div class="mt-2 grid grid-cols-3 gap-2">
 							<label class="cursor-pointer rounded-2xl bg-[#E1F4F5] p-2 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#189A96] sm:p-3">
-								<input class="sr-only" type="radio" name="type" value="good" bind:group={feedbackType} />
+								<input class="sr-only" type="checkbox" name="type" value="good" bind:group={feedbackTypes} />
 								<span class="block text-xl sm:text-2xl">🎉</span>
 								<span class="mt-1 block text-xs font-black text-[#189A96] sm:text-base">Godt!</span>
 							</label>
 							<label class="cursor-pointer rounded-2xl bg-[#FFF4E7] p-2 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#C77D39] sm:p-3">
-								<input class="sr-only" type="radio" name="type" value="improvement" bind:group={feedbackType} />
+								<input class="sr-only" type="checkbox" name="type" value="improvement" bind:group={feedbackTypes} />
 								<span class="block text-xl sm:text-2xl">🛠️</span>
 								<span class="mt-1 block text-xs font-black text-[#C77D39] sm:text-base">Forbedring</span>
 							</label>
 							<label class="cursor-pointer rounded-2xl bg-[#F3F8DC] p-2 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#6B8F1A] sm:p-3">
-								<input class="sr-only" type="radio" name="type" value="suggestion" bind:group={feedbackType} />
+								<input class="sr-only" type="checkbox" name="type" value="suggestion" bind:group={feedbackTypes} />
 								<span class="block text-xl sm:text-2xl">💡</span>
 								<span class="mt-1 block text-xs font-black text-[#6B8F1A] sm:text-base">Forslag</span>
 							</label>
