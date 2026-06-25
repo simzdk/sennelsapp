@@ -2,6 +2,7 @@ import { fail } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
 const feedbackRecipient = 'mail@simonamby.dk';
+const feedbackBccRecipient = 'mallestrandfest@gmail.com';
 const feedbackSender = 'Sennels App <mail@simonamby.dk>';
 
 const feedbackTypes = {
@@ -117,7 +118,7 @@ export const actions = {
 		let responseText = '';
 
 		try {
-			console.info('Sending feedback to SMTP2GO', { recipient: feedbackRecipient, typeSummary });
+			console.info('Sending feedback to SMTP2GO', { recipient: feedbackRecipient, bcc: feedbackBccRecipient, typeSummary });
 			response = await fetch('https://api.smtp2go.com/v3/email/send', {
 				method: 'POST',
 				headers: {
@@ -127,6 +128,7 @@ export const actions = {
 				body: JSON.stringify({
 					sender: feedbackSender,
 					to: [feedbackRecipient],
+					bcc: [feedbackBccRecipient],
 					subject: `Sennels App feedback (${typeSummary})`,
 					html_body: html,
 					text_body: `Ny feedback: ${typeSummary}\n\nNavn: ${name || 'Ikke oplyst'}\nEmail: ${email || 'Ikke oplyst'}\n\n${comment}`,
