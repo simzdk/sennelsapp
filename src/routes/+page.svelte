@@ -20,8 +20,10 @@
 	let checked = $state<Record<string, boolean>>({});
 	let feedbackTypes = $state<string[]>([]);
 	let feedbackSentAt = $state('');
-	let showFeedbackThanks = $state(false);
+	let showFeedbackFormAgain = $state(false);
 	let feedbackSubmitting = $state(false);
+	let rememberedFeedbackName = $state('');
+	let rememberedFeedbackEmail = $state('');
 
 	const completed = $derived(checklistItems.filter((item) => checked[item.id]).length);
 	const remaining = $derived(checklistItems.length - completed);
@@ -82,11 +84,11 @@
 
 	function openFeedback() {
 		appValue = 'feedback';
-		showFeedbackThanks = false;
+		showFeedbackFormAgain = false;
 	}
 
 	function giveMoreFeedback() {
-		showFeedbackThanks = false;
+		showFeedbackFormAgain = true;
 		feedbackTypes = [];
 		feedbackSubmitting = false;
 	}
@@ -99,16 +101,19 @@
 
 	function handleFeedbackSubmit(formElement: HTMLFormElement) {
 		feedbackSubmitting = true;
+		const submittedData = new FormData(formElement);
 
 		return async ({ result, update }: { result: { type: string }; update: () => Promise<void> }) => {
 			await update();
 			feedbackSubmitting = false;
 
 			if (result.type === 'success') {
+				rememberedFeedbackName = String(submittedData.get('name') ?? '').trim();
+				rememberedFeedbackEmail = String(submittedData.get('email') ?? '').trim();
 				feedbackSentAt = new Date().toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
 				formElement.reset();
 				feedbackTypes = [];
-				showFeedbackThanks = true;
+				showFeedbackFormAgain = false;
 			}
 		};
 	}
@@ -160,7 +165,7 @@
 		<main class="mx-auto mt-5 max-w-2xl px-3">
 			<button type="button" class="mb-3 rounded-full bg-white px-4 py-2 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/30" onclick={() => (appValue = 'menu')}>← Tilbage til menu</button>
 			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
-				{#if form?.feedbackSuccess && showFeedbackThanks}
+				{#if form?.feedbackSuccess && !showFeedbackFormAgain}
 					<section class="rounded-[1.35rem] bg-white/95 p-6 text-center sm:p-8">
 						<div class="mx-auto flex size-16 items-center justify-center rounded-3xl bg-[#E1F4F5] text-4xl ring-1 ring-[#52C4C1]/35">✓</div>
 						<p class="mt-5 text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Feedback sendt</p>
@@ -186,7 +191,7 @@
 					<div class="mt-5 grid gap-3 sm:grid-cols-2">
 						<label class="grid gap-1 text-sm font-bold text-slate-700">
 							<span class="whitespace-nowrap">Navn <span class="font-normal text-slate-400">(valgfri)</span></span>
-							<input class="rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]" name="name" autocomplete="name" value={form?.name ?? ''} />
+							<input class="rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]" name="name" autocomplete="name" value={form?.name ?? rememberedFeedbackName} />
 						</label>
 						<label class="grid gap-1 text-sm font-bold text-slate-700">
 							<span class="whitespace-nowrap">Email <span class="font-normal text-slate-400">(valgfri)</span></span>
@@ -196,7 +201,7 @@
 								type="email"
 								autocomplete="email"
 								inputmode="email"
-								value={form?.email ?? ''}
+								value={form?.email ?? rememberedFeedbackEmail}
 								oninput={(event) => event.currentTarget.setCustomValidity('')}
 								oninvalid={(event) => event.currentTarget.setCustomValidity('Skriv venligst en gyldig emailadresse.')}
 							/>
