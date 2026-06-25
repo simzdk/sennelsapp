@@ -185,7 +185,16 @@
 						</label>
 						<label class="grid gap-1 text-sm font-bold text-slate-700">
 							<span class="whitespace-nowrap">Email <span class="font-normal text-slate-400">(valgfri)</span></span>
-							<input class="rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]" name="email" type="email" autocomplete="email" inputmode="email" value={form?.email ?? ''} />
+							<input
+								class="rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]"
+								name="email"
+								type="email"
+								autocomplete="email"
+								inputmode="email"
+								value={form?.email ?? ''}
+								oninput={(event) => event.currentTarget.setCustomValidity('')}
+								oninvalid={(event) => event.currentTarget.setCustomValidity('Skriv venligst en gyldig emailadresse.')}
+							/>
 						</label>
 					</div>
 
