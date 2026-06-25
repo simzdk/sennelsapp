@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
+	import { page } from '$app/state';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { checklistItems, checklistStorageKey } from '$lib/strandfestChecklist';
 	import Wednesday from '$lib/components/strandfest/wednesday.svelte';
@@ -14,7 +15,10 @@
 
 	let today = new Date();
 	let { form } = $props();
-	const initialAppValue = () => (form?.feedbackSuccess || form?.feedbackError ? 'feedback' : 'menu');
+	const initialAppValue = () =>
+		form?.feedbackSuccess || form?.feedbackError || page.url.searchParams.get('app') === 'feedback'
+			? 'feedback'
+			: 'menu';
 	let appValue = $state<'menu' | 'strandfest' | 'feedback'>(initialAppValue());
 	let dayValue = $state('home');
 	let checked = $state<Record<string, boolean>>({});
