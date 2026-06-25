@@ -20,6 +20,7 @@
 	let checked = $state<Record<string, boolean>>({});
 	let feedbackTypes = $state<string[]>(['good']);
 	let feedbackSentAt = $state('');
+	let showFeedbackThanks = $state(false);
 
 	const completed = $derived(checklistItems.filter((item) => checked[item.id]).length);
 	const remaining = $derived(checklistItems.length - completed);
@@ -80,6 +81,12 @@
 
 	function openFeedback() {
 		appValue = 'feedback';
+		showFeedbackThanks = false;
+	}
+
+	function giveMoreFeedback() {
+		showFeedbackThanks = false;
+		feedbackTypes = ['good'];
 	}
 
 	function handleFeedbackSubmit(formElement: HTMLFormElement) {
@@ -90,6 +97,7 @@
 				feedbackSentAt = new Date().toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
 				formElement.reset();
 				feedbackTypes = ['good'];
+				showFeedbackThanks = true;
 			}
 		};
 	}
@@ -141,22 +149,26 @@
 		<main class="mx-auto mt-5 max-w-2xl px-3">
 			<button type="button" class="mb-3 rounded-full bg-white px-4 py-2 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/30" onclick={() => (appValue = 'menu')}>← Tilbage til menu</button>
 			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
+				{#if form?.feedbackSuccess && showFeedbackThanks}
+					<section class="rounded-[1.35rem] bg-white/95 p-6 text-center sm:p-8">
+						<div class="mx-auto flex size-16 items-center justify-center rounded-3xl bg-[#E1F4F5] text-4xl ring-1 ring-[#52C4C1]/35">✓</div>
+						<p class="mt-5 text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Feedback sendt</p>
+						<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Tak for din feedback!</h2>
+						<p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-700">
+							Din feedback hjælper med at sikre, at vi får en endnu bedre Malle Strandfest næste år.
+						</p>
+						{#if feedbackSentAt}
+							<p class="mt-4 inline-flex rounded-full bg-[#E1F4F5] px-3 py-1 text-xs font-black text-[#189A96] ring-1 ring-[#52C4C1]/30">Sendt kl. {feedbackSentAt}</p>
+						{/if}
+						<button type="button" class="mt-6 w-full rounded-2xl bg-[#189A96] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#137f7b] active:scale-[0.99]" onclick={giveMoreFeedback}>Giv mere feedback</button>
+					</section>
+				{:else}
 				<form method="POST" action="?/feedback" use:enhance={handleFeedbackSubmit} class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
 					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Feedback</p>
 					<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Hvad synes du om Malle Strandfest?</h2>
 					<p class="mt-3 text-sm leading-relaxed text-slate-600">Er der noget, der kan gøres bedre næste år? Din besked hjælper os med at gøre festen endnu bedre.</p>
 
-					{#if form?.feedbackSuccess}
-						<div class="mt-5 rounded-3xl bg-[#E1F4F5] p-4 text-[#189A96] ring-1 ring-[#52C4C1]/35">
-							<p class="text-lg font-black">Tak for din feedback!</p>
-							<p class="mt-2 text-sm leading-relaxed text-slate-700">
-								Det er virkelig dejligt, at du tager dig tid til at skrive. Din feedback hjælper med at sikre, at vi får en endnu bedre Malle Strandfest næste år.
-							</p>
-							{#if feedbackSentAt}
-								<p class="mt-3 inline-flex rounded-full bg-white px-3 py-1 text-xs font-black text-[#189A96] ring-1 ring-[#52C4C1]/30">Sendt kl. {feedbackSentAt}</p>
-							{/if}
-						</div>
-					{:else if form?.feedbackError}
+					{#if form?.feedbackError}
 						<div class="mt-5 rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-700 ring-1 ring-red-100">{form.feedbackError}</div>
 					{/if}
 
@@ -174,20 +186,29 @@
 					<fieldset class="mt-5">
 						<legend class="text-sm font-bold text-slate-700">Vælg en eller flere typer</legend>
 						<div class="mt-2 grid grid-cols-3 gap-2">
-							<label class="cursor-pointer rounded-2xl bg-[#E1F4F5] p-2 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#189A96] sm:p-3">
+							<label class="relative cursor-pointer rounded-2xl bg-[#E1F4F5] p-2 text-center text-[#189A96] ring-2 ring-transparent transition has-[:checked]:bg-[#189A96] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#0f6f6b] sm:p-3">
 								<input class="sr-only" type="checkbox" name="type" value="good" bind:group={feedbackTypes} />
+								{#if feedbackTypes.includes('good')}
+									<span class="absolute right-2 top-2 flex size-5 items-center justify-center rounded-full bg-white text-xs font-black text-[#189A96]">✓</span>
+								{/if}
 								<span class="block text-xl sm:text-2xl">🎉</span>
-								<span class="mt-1 block text-xs font-black text-[#189A96] sm:text-base">Godt!</span>
+								<span class="mt-1 block text-xs font-black sm:text-base">Godt!</span>
 							</label>
-							<label class="cursor-pointer rounded-2xl bg-[#FFF4E7] p-2 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#C77D39] sm:p-3">
+							<label class="relative cursor-pointer rounded-2xl bg-[#FFF4E7] p-2 text-center text-[#C77D39] ring-2 ring-transparent transition has-[:checked]:bg-[#C77D39] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#8d5727] sm:p-3">
 								<input class="sr-only" type="checkbox" name="type" value="improvement" bind:group={feedbackTypes} />
+								{#if feedbackTypes.includes('improvement')}
+									<span class="absolute right-2 top-2 flex size-5 items-center justify-center rounded-full bg-white text-xs font-black text-[#C77D39]">✓</span>
+								{/if}
 								<span class="block text-xl sm:text-2xl">🛠️</span>
-								<span class="mt-1 block text-xs font-black text-[#C77D39] sm:text-base">Forbedring</span>
+								<span class="mt-1 block text-xs font-black sm:text-base">Forbedring</span>
 							</label>
-							<label class="cursor-pointer rounded-2xl bg-[#F3F8DC] p-2 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#6B8F1A] sm:p-3">
+							<label class="relative cursor-pointer rounded-2xl bg-[#F3F8DC] p-2 text-center text-[#6B8F1A] ring-2 ring-transparent transition has-[:checked]:bg-[#6B8F1A] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#476013] sm:p-3">
 								<input class="sr-only" type="checkbox" name="type" value="suggestion" bind:group={feedbackTypes} />
+								{#if feedbackTypes.includes('suggestion')}
+									<span class="absolute right-2 top-2 flex size-5 items-center justify-center rounded-full bg-white text-xs font-black text-[#6B8F1A]">✓</span>
+								{/if}
 								<span class="block text-xl sm:text-2xl">💡</span>
-								<span class="mt-1 block text-xs font-black text-[#6B8F1A] sm:text-base">Forslag</span>
+								<span class="mt-1 block text-xs font-black sm:text-base">Forslag</span>
 							</label>
 						</div>
 					</fieldset>
@@ -199,6 +220,7 @@
 
 					<button type="submit" class="mt-5 w-full rounded-2xl bg-[#189A96] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#137f7b] active:scale-[0.99]">Send</button>
 				</form>
+				{/if}
 			</div>
 		</main>
 	{:else}
