@@ -1,8 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
-const feedbackRecipient = 'mail@simonamby.dk';
-const feedbackBccRecipient = 'mallestrandfest@gmail.com';
+const feedbackRecipients = ['mail@simonamby.dk', 'mallestrandfest@gmail.com'];
 const feedbackSender = 'Sennels App <mail@simonamby.dk>';
 
 const feedbackTypes = {
@@ -118,7 +117,7 @@ export const actions = {
 		let responseText = '';
 
 		try {
-			console.info('Sending feedback to SMTP2GO', { recipient: feedbackRecipient, bcc: feedbackBccRecipient, typeSummary });
+			console.info('Sending feedback to SMTP2GO', { bccCount: feedbackRecipients.length, typeSummary });
 			response = await fetch('https://api.smtp2go.com/v3/email/send', {
 				method: 'POST',
 				headers: {
@@ -127,8 +126,7 @@ export const actions = {
 				},
 				body: JSON.stringify({
 					sender: feedbackSender,
-					to: [feedbackRecipient],
-					bcc: [feedbackBccRecipient],
+					bcc: feedbackRecipients,
 					subject: `Sennels App feedback (${typeSummary})`,
 					html_body: html,
 					text_body: `Ny feedback: ${typeSummary}\n\nNavn: ${name || 'Ikke oplyst'}\nEmail: ${email || 'Ikke oplyst'}\n\n${comment}`,
@@ -150,7 +148,7 @@ export const actions = {
 			return fail(502, { feedbackError: 'Feedback kunne ikke sendes lige nu. Prøv igen senere.', name, email, types, comment });
 		}
 
-		console.info('SMTP2GO feedback sent', { status: response.status, recipient: feedbackRecipient, types });
+		console.info('SMTP2GO feedback sent', { status: response.status, bccCount: feedbackRecipients.length, types });
 
 		return {
 			feedbackSuccess: true,
