@@ -117,7 +117,8 @@ export const actions = {
 		let responseText = '';
 
 		try {
-			console.info('Sending feedback to SMTP2GO', { bccCount: feedbackRecipients.length, typeSummary });
+			const [to, ...bcc] = feedbackRecipients;
+			console.info('Sending feedback to SMTP2GO', { to, bccCount: bcc.length, typeSummary });
 			response = await fetch('https://api.smtp2go.com/v3/email/send', {
 				method: 'POST',
 				headers: {
@@ -126,7 +127,8 @@ export const actions = {
 				},
 				body: JSON.stringify({
 					sender: feedbackSender,
-					bcc: feedbackRecipients,
+					to: [to],
+					bcc,
 					subject: `Sennels App feedback (${typeSummary})`,
 					html_body: html,
 					text_body: `Ny feedback: ${typeSummary}\n\nNavn: ${name || 'Ikke oplyst'}\nEmail: ${email || 'Ikke oplyst'}\n\n${comment}`,
