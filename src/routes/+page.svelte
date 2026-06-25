@@ -101,24 +101,24 @@
 					<div class="mt-6 grid grid-cols-2 gap-2 sm:gap-3">
 						<button
 							type="button"
-							class="group rounded-3xl bg-[#E1F4F5] p-3 text-left ring-1 ring-[#52C4C1]/35 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99] sm:p-5"
+							class="group flex min-h-56 flex-col rounded-3xl bg-[#E1F4F5] p-3 text-left ring-1 ring-[#52C4C1]/35 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99] sm:min-h-64 sm:p-5"
 							onclick={openStrandfest}
 						>
 							<span class="flex size-12 items-center justify-center rounded-2xl bg-[#189A96] text-2xl shadow-sm sm:size-14 sm:text-3xl">📅</span>
 							<span class="mt-4 block text-lg font-black leading-tight text-slate-950 sm:text-2xl">Malle Strandfest</span>
-							<span class="mt-2 block text-xs leading-relaxed text-slate-600 sm:text-sm">Se programmet og din huskeliste.</span>
-							<span class="mt-4 inline-flex rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-[#189A96] ring-1 ring-[#52C4C1]/30 sm:px-3 sm:text-xs">Åbn program</span>
+							<span class="mt-2 block flex-1 text-xs leading-relaxed text-slate-600 sm:text-sm">Se programmet og din huskeliste.</span>
+							<span class="mt-4 inline-flex w-fit rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-[#189A96] ring-1 ring-[#52C4C1]/30 sm:px-3 sm:text-xs">Åbn program</span>
 						</button>
 
 						<button
 							type="button"
-							class="group rounded-3xl bg-[#FFF4E7] p-3 text-left ring-1 ring-[#C77D39]/25 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99] sm:p-5"
+							class="group flex min-h-56 flex-col rounded-3xl bg-[#FFF4E7] p-3 text-left ring-1 ring-[#C77D39]/25 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99] sm:min-h-64 sm:p-5"
 							onclick={openFeedback}
 						>
 							<span class="flex size-12 items-center justify-center rounded-2xl bg-[#C77D39] text-2xl shadow-sm sm:size-14 sm:text-3xl">💬</span>
 							<span class="mt-4 block text-lg font-black leading-tight text-slate-950 sm:text-2xl">Feedback</span>
-							<span class="mt-2 block text-xs leading-relaxed text-slate-600 sm:text-sm">Fortæl hvad der virker eller kan blive bedre.</span>
-							<span class="mt-4 inline-flex rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-[#C77D39] ring-1 ring-[#C77D39]/25 sm:px-3 sm:text-xs">Giv feedback</span>
+							<span class="mt-2 block flex-1 text-xs leading-relaxed text-slate-600 sm:text-sm">Fortæl hvad der virker eller kan blive bedre.</span>
+							<span class="mt-4 inline-flex w-fit rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-[#C77D39] ring-1 ring-[#C77D39]/25 sm:px-3 sm:text-xs">Giv feedback</span>
 						</button>
 					</div>
 				</div>
@@ -152,21 +152,21 @@
 
 					<fieldset class="mt-5">
 						<legend class="text-sm font-bold text-slate-700">Vælg type</legend>
-						<div class="mt-2 grid gap-2 sm:grid-cols-3">
-							<label class="cursor-pointer rounded-2xl bg-[#E1F4F5] p-3 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#189A96]">
+						<div class="mt-2 grid grid-cols-3 gap-2">
+							<label class="cursor-pointer rounded-2xl bg-[#E1F4F5] p-2 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#189A96] sm:p-3">
 								<input class="sr-only" type="radio" name="type" value="good" bind:group={feedbackType} />
-								<span class="block text-2xl">🎉</span>
-								<span class="mt-1 block font-black text-[#189A96]">Godt!</span>
+								<span class="block text-xl sm:text-2xl">🎉</span>
+								<span class="mt-1 block text-xs font-black text-[#189A96] sm:text-base">Godt!</span>
 							</label>
-							<label class="cursor-pointer rounded-2xl bg-[#FFF4E7] p-3 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#C77D39]">
+							<label class="cursor-pointer rounded-2xl bg-[#FFF4E7] p-2 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#C77D39] sm:p-3">
 								<input class="sr-only" type="radio" name="type" value="improvement" bind:group={feedbackType} />
-								<span class="block text-2xl">🛠️</span>
-								<span class="mt-1 block font-black text-[#C77D39]">Forbedring</span>
+								<span class="block text-xl sm:text-2xl">🛠️</span>
+								<span class="mt-1 block text-xs font-black text-[#C77D39] sm:text-base">Forbedring</span>
 							</label>
-							<label class="cursor-pointer rounded-2xl bg-[#F3F8DC] p-3 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#6B8F1A]">
+							<label class="cursor-pointer rounded-2xl bg-[#F3F8DC] p-2 text-center ring-2 ring-transparent transition has-[:checked]:ring-[#6B8F1A] sm:p-3">
 								<input class="sr-only" type="radio" name="type" value="suggestion" bind:group={feedbackType} />
-								<span class="block text-2xl">💡</span>
-								<span class="mt-1 block font-black text-[#6B8F1A]">Forslag</span>
+								<span class="block text-xl sm:text-2xl">💡</span>
+								<span class="mt-1 block text-xs font-black text-[#6B8F1A] sm:text-base">Forslag</span>
 							</label>
 						</div>
 					</fieldset>

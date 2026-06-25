@@ -54,8 +54,11 @@ export const actions = {
 		}
 
 		if (!env.SMTP2GO_API_KEY) {
+			console.error('SMTP2GO_API_KEY is missing from runtime environment');
 			return fail(500, { feedbackError: 'Feedback kan ikke sendes endnu. SMTP2GO mangler opsætning.', name, email, type, comment });
 		}
+
+		console.info('SMTP2GO_API_KEY is present in runtime environment');
 
 		const selectedType = feedbackTypes[type];
 		const html = `
