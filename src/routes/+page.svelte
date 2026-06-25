@@ -98,16 +98,15 @@
 			: [...feedbackTypes, type];
 	}
 
-	function handleFeedbackSubmit(formElement: HTMLFormElement) {
+	function handleFeedbackSubmit({ formElement, formData }: { formElement: HTMLFormElement; formData: FormData }) {
 		feedbackSubmitting = true;
-		const submittedData = new FormData(formElement);
 
 		return async ({ result, update }: { result: { type: string }; update: () => Promise<void> }) => {
 			feedbackSubmitting = false;
 
 			if (result.type === 'success') {
-				rememberedFeedbackName = String(submittedData.get('name') ?? '').trim();
-				rememberedFeedbackEmail = String(submittedData.get('email') ?? '').trim();
+				rememberedFeedbackName = String(formData.get('name') ?? '').trim();
+				rememberedFeedbackEmail = String(formData.get('email') ?? '').trim();
 				feedbackSentAt = new Date().toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
 				formElement.reset();
 				feedbackTypes = [];
