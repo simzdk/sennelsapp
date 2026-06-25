@@ -96,27 +96,27 @@
 					<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Hvad vil du åbne?</h2>
 					<p class="mt-3 text-sm leading-relaxed text-slate-600">Program, huskeliste og feedback samlet ét sted.</p>
 
-					<div class="mt-6 grid gap-3 sm:grid-cols-2">
+					<div class="mt-6 grid grid-cols-2 gap-2 sm:gap-3">
 						<button
 							type="button"
-							class="group rounded-3xl bg-[#E1F4F5] p-5 text-left ring-1 ring-[#52C4C1]/35 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99]"
+							class="group rounded-3xl bg-[#E1F4F5] p-3 text-left ring-1 ring-[#52C4C1]/35 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99] sm:p-5"
 							onclick={openStrandfest}
 						>
-							<span class="flex size-14 items-center justify-center rounded-2xl bg-[#189A96] text-3xl shadow-sm">📅</span>
-							<span class="mt-5 block text-2xl font-black text-slate-950">Malle Strandfest</span>
-							<span class="mt-2 block text-sm leading-relaxed text-slate-600">Se programmet for alle dage og din huskeliste.</span>
-							<span class="mt-4 inline-flex rounded-full bg-white px-3 py-1 text-xs font-black uppercase tracking-wide text-[#189A96] ring-1 ring-[#52C4C1]/30">Åbn program</span>
+							<span class="flex size-12 items-center justify-center rounded-2xl bg-[#189A96] text-2xl shadow-sm sm:size-14 sm:text-3xl">📅</span>
+							<span class="mt-4 block text-lg font-black leading-tight text-slate-950 sm:text-2xl">Malle Strandfest</span>
+							<span class="mt-2 block text-xs leading-relaxed text-slate-600 sm:text-sm">Se programmet og din huskeliste.</span>
+							<span class="mt-4 inline-flex rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-[#189A96] ring-1 ring-[#52C4C1]/30 sm:px-3 sm:text-xs">Åbn program</span>
 						</button>
 
 						<button
 							type="button"
-							class="group rounded-3xl bg-[#FFF4E7] p-5 text-left ring-1 ring-[#C77D39]/25 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99]"
+							class="group rounded-3xl bg-[#FFF4E7] p-3 text-left ring-1 ring-[#C77D39]/25 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99] sm:p-5"
 							onclick={openFeedback}
 						>
-							<span class="flex size-14 items-center justify-center rounded-2xl bg-[#C77D39] text-3xl shadow-sm">💬</span>
-							<span class="mt-5 block text-2xl font-black text-slate-950">Feedback</span>
-							<span class="mt-2 block text-sm leading-relaxed text-slate-600">Fortæl os hvad der virker, kan forbedres eller bør prøves.</span>
-							<span class="mt-4 inline-flex rounded-full bg-white px-3 py-1 text-xs font-black uppercase tracking-wide text-[#C77D39] ring-1 ring-[#C77D39]/25">Giv feedback</span>
+							<span class="flex size-12 items-center justify-center rounded-2xl bg-[#C77D39] text-2xl shadow-sm sm:size-14 sm:text-3xl">💬</span>
+							<span class="mt-4 block text-lg font-black leading-tight text-slate-950 sm:text-2xl">Feedback</span>
+							<span class="mt-2 block text-xs leading-relaxed text-slate-600 sm:text-sm">Fortæl hvad der virker eller kan blive bedre.</span>
+							<span class="mt-4 inline-flex rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-[#C77D39] ring-1 ring-[#C77D39]/25 sm:px-3 sm:text-xs">Giv feedback</span>
 						</button>
 					</div>
 				</div>
