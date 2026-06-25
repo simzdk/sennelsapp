@@ -84,8 +84,10 @@
 
 <div class="min-h-dvh bg-gradient-to-b from-orange-50 via-white to-cyan-50 px-2 pb-20 pt-1">
 	<header class="mx-auto max-w-4xl px-3 pt-2 text-center">
-		<p class="text-sm font-bold uppercase tracking-[0.25em] text-orange-700">17. - 23. juni 2026</p>
-		<h1 class="mt-2 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">Sennels App</h1>
+		{#if appValue === 'strandfest'}
+			<p class="text-sm font-bold uppercase tracking-[0.25em] text-orange-700">17. - 23. juni 2026</p>
+			<h1 class="mt-2 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">Malle Strandfest</h1>
+		{/if}
 	</header>
 
 	{#if appValue === 'menu'}
@@ -128,8 +130,8 @@
 			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
 				<form method="POST" action="?/feedback" use:enhance class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
 					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Feedback</p>
-					<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Hvad synes du?</h2>
-					<p class="mt-3 text-sm leading-relaxed text-slate-600">Din besked hjælper os med at gøre Sennels App bedre.</p>
+					<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Hvad synes du om Malle Strandfest?</h2>
+					<p class="mt-3 text-sm leading-relaxed text-slate-600">Er der noget, der kan gøres bedre næste år? Din besked hjælper os med at gøre festen endnu bedre.</p>
 
 					{#if form?.feedbackSuccess}
 						<div class="mt-5 rounded-2xl bg-[#E1F4F5] px-4 py-3 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/35">Tak for din feedback. Den er sendt.</div>

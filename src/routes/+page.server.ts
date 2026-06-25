@@ -79,25 +79,41 @@ export const actions = {
 				</div>
 			</div>`;
 
-		const response = await fetch('https://api.smtp2go.com/v3/email/send', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-Smtp2go-Api-Key': env.SMTP2GO_API_KEY
-			},
-			body: JSON.stringify({
-				sender: feedbackSender,
-				to: [feedbackRecipient],
-				subject: `Sennels App feedback: ${selectedType.label}`,
-				html_body: html,
-				text_body: `Ny feedback: ${selectedType.label}\n\nNavn: ${name || 'Ikke oplyst'}\nEmail: ${email || 'Ikke oplyst'}\n\n${comment}`,
-				custom_headers: email ? [{ header: 'Reply-To', value: email }] : undefined
-			})
-		});
+		let response: Response;
+		let responseText = '';
 
-		if (!response.ok) {
+		try {
+			response = await fetch('https://api.smtp2go.com/v3/email/send', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Smtp2go-Api-Key': env.SMTP2GO_API_KEY
+				},
+				body: JSON.stringify({
+					sender: feedbackSender,
+					to: [feedbackRecipient],
+					subject: `Sennels App feedback: ${selectedType.label}`,
+					html_body: html,
+					text_body: `Ny feedback: ${selectedType.label}\n\nNavn: ${name || 'Ikke oplyst'}\nEmail: ${email || 'Ikke oplyst'}\n\n${comment}`,
+					custom_headers: email ? [{ header: 'Reply-To', value: email }] : undefined
+				})
+			});
+			responseText = await response.text();
+		} catch (error) {
+			console.error('SMTP2GO feedback request failed', error);
 			return fail(502, { feedbackError: 'Feedback kunne ikke sendes lige nu. Prøv igen senere.', name, email, type, comment });
 		}
+
+		if (!response.ok) {
+			console.error('SMTP2GO feedback response failed', {
+				status: response.status,
+				statusText: response.statusText,
+				body: responseText
+			});
+			return fail(502, { feedbackError: 'Feedback kunne ikke sendes lige nu. Prøv igen senere.', name, email, type, comment });
+		}
+
+		console.info('SMTP2GO feedback sent', { status: response.status, recipient: feedbackRecipient, type });
 
 		return { feedbackSuccess: true };
 	}
