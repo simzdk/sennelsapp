@@ -48,21 +48,31 @@ function escapeHtml(value: string) {
 
 export const actions = {
 	feedback: async ({ request, fetch }) => {
+		console.info('Feedback action received request');
 		const data = await request.formData();
 		const name = String(data.get('name') ?? '').trim();
 		const email = String(data.get('email') ?? '').trim();
 		const types = getFeedbackTypes(data);
 		const comment = String(data.get('comment') ?? '').trim();
+		console.info('Feedback action parsed form', {
+			hasName: Boolean(name),
+			hasEmail: Boolean(email),
+			types,
+			commentLength: comment.length
+		});
 
 		if (types.length === 0) {
+			console.warn('Feedback validation failed: missing type');
 			return fail(400, { feedbackError: 'Vælg venligst en type feedback.', name, email, comment });
 		}
 
 		if (email && !emailPattern.test(email)) {
+			console.warn('Feedback validation failed: invalid email');
 			return fail(400, { feedbackError: 'Skriv venligst en gyldig emailadresse.', name, email, types, comment });
 		}
 
 		if (!comment) {
+			console.warn('Feedback validation failed: missing comment');
 			return fail(400, { feedbackError: 'Skriv venligst en kommentar.', name, email, types });
 		}
 
@@ -107,6 +117,7 @@ export const actions = {
 		let responseText = '';
 
 		try {
+			console.info('Sending feedback to SMTP2GO', { recipient: feedbackRecipient, typeSummary });
 			response = await fetch('https://api.smtp2go.com/v3/email/send', {
 				method: 'POST',
 				headers: {
@@ -139,6 +150,12 @@ export const actions = {
 
 		console.info('SMTP2GO feedback sent', { status: response.status, recipient: feedbackRecipient, types });
 
-		return { feedbackSuccess: true, feedbackType: primaryType.label };
+		return {
+			feedbackSuccess: true,
+			feedbackType: primaryType.label,
+			name,
+			email,
+			sentAt: new Date().toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Copenhagen' })
+		};
 	}
 };

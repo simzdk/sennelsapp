@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import { enhance } from '$app/forms';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { checklistItems, checklistStorageKey } from '$lib/strandfestChecklist';
 	import Wednesday from '$lib/components/strandfest/wednesday.svelte';
@@ -19,11 +18,7 @@
 	let dayValue = $state('home');
 	let checked = $state<Record<string, boolean>>({});
 	let feedbackTypes = $state<string[]>([]);
-	let feedbackSentAt = $state('');
 	let showFeedbackThanks = $state(false);
-	let feedbackSubmitting = $state(false);
-	let rememberedFeedbackName = $state('');
-	let rememberedFeedbackEmail = $state('');
 
 	const completed = $derived(checklistItems.filter((item) => checked[item.id]).length);
 	const remaining = $derived(checklistItems.length - completed);
@@ -84,12 +79,12 @@
 
 	function openFeedback() {
 		appValue = 'feedback';
+		showFeedbackThanks = false;
 	}
 
 	function giveMoreFeedback() {
 		showFeedbackThanks = false;
 		feedbackTypes = [];
-		feedbackSubmitting = false;
 	}
 
 	function toggleFeedbackType(type: string) {
@@ -98,25 +93,13 @@
 			: [...feedbackTypes, type];
 	}
 
-	function handleFeedbackSubmit({ formElement, formData }: { formElement: HTMLFormElement; formData: FormData }) {
-		feedbackSubmitting = true;
-
-		return async ({ result, update }: { result: { type: string }; update: () => Promise<void> }) => {
-			feedbackSubmitting = false;
-
-			if (result.type === 'success') {
-				rememberedFeedbackName = String(formData.get('name') ?? '').trim();
-				rememberedFeedbackEmail = String(formData.get('email') ?? '').trim();
-				feedbackSentAt = new Date().toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
-				formElement.reset();
-				feedbackTypes = [];
-				showFeedbackThanks = true;
-				return;
-			}
-
-			await update();
-		};
-	}
+	$effect(() => {
+		if (form?.feedbackSuccess) {
+			appValue = 'feedback';
+			showFeedbackThanks = true;
+			feedbackTypes = [];
+		}
+	});
 </script>
 
 <div class="min-h-dvh bg-gradient-to-b from-orange-50 via-white to-cyan-50 px-2 pb-20 pt-1">
@@ -165,7 +148,7 @@
 		<main class="mx-auto mt-5 max-w-2xl px-3">
 			<button type="button" class="mb-3 rounded-full bg-white px-4 py-2 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/30" onclick={() => (appValue = 'menu')}>← Tilbage til menu</button>
 			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
-				{#if showFeedbackThanks}
+				{#if showFeedbackThanks || form?.feedbackSuccess}
 					<section class="rounded-[1.35rem] bg-white/95 p-6 text-center sm:p-8">
 						<div class="mx-auto flex size-16 items-center justify-center rounded-3xl bg-[#E1F4F5] text-4xl ring-1 ring-[#52C4C1]/35">✓</div>
 						<p class="mt-5 text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Feedback sendt</p>
@@ -173,13 +156,13 @@
 						<p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-700">
 							Din feedback hjælper med at sikre, at vi får en endnu bedre Malle Strandfest næste år.
 						</p>
-						{#if feedbackSentAt}
-							<p class="mt-4 inline-flex rounded-full bg-[#E1F4F5] px-3 py-1 text-xs font-black text-[#189A96] ring-1 ring-[#52C4C1]/30">Sendt kl. {feedbackSentAt}</p>
+						{#if form?.sentAt}
+							<p class="mt-4 inline-flex rounded-full bg-[#E1F4F5] px-3 py-1 text-xs font-black text-[#189A96] ring-1 ring-[#52C4C1]/30">Sendt kl. {form.sentAt}</p>
 						{/if}
 						<button type="button" class="mt-6 w-full rounded-2xl bg-[#189A96] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#137f7b] active:scale-[0.99]" onclick={giveMoreFeedback}>Giv mere feedback</button>
 					</section>
 				{:else}
-				<form method="POST" action="?/feedback" use:enhance={handleFeedbackSubmit} class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
+				<form method="POST" action="?/feedback" class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
 					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Feedback</p>
 					<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Hvad synes du om Malle Strandfest?</h2>
 					<p class="mt-3 text-sm leading-relaxed text-slate-600">Er der noget, der kan gøres bedre næste år? Din besked hjælper os med at gøre festen endnu bedre.</p>
@@ -191,7 +174,7 @@
 					<div class="mt-5 grid gap-3 sm:grid-cols-2">
 						<label class="grid gap-1 text-sm font-bold text-slate-700">
 							<span class="whitespace-nowrap">Navn <span class="font-normal text-slate-400">(valgfri)</span></span>
-							<input class="rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]" name="name" autocomplete="name" value={form?.name ?? rememberedFeedbackName} />
+							<input class="rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]" name="name" autocomplete="name" value={form?.name ?? ''} />
 						</label>
 						<label class="grid gap-1 text-sm font-bold text-slate-700">
 							<span class="whitespace-nowrap">Email <span class="font-normal text-slate-400">(valgfri)</span></span>
@@ -201,7 +184,7 @@
 								type="email"
 								autocomplete="email"
 								inputmode="email"
-								value={form?.email ?? rememberedFeedbackEmail}
+								value={form?.email ?? ''}
 								oninput={(event) => event.currentTarget.setCustomValidity('')}
 								oninvalid={(event) => event.currentTarget.setCustomValidity('Skriv venligst en gyldig emailadresse.')}
 							/>
@@ -246,7 +229,7 @@
 						<textarea class="min-h-36 rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]" name="comment" required placeholder="Skriv din mening her...">{form?.comment ?? ''}</textarea>
 					</label>
 
-					<button type="submit" disabled={feedbackTypes.length === 0 || feedbackSubmitting} class="mt-5 w-full rounded-2xl bg-[#189A96] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#137f7b] active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none">{feedbackSubmitting ? 'Sender...' : 'Send'}</button>
+					<button type="submit" disabled={feedbackTypes.length === 0} class="mt-5 w-full rounded-2xl bg-[#189A96] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#137f7b] active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none">Send</button>
 				</form>
 				{/if}
 			</div>
