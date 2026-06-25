@@ -21,6 +21,7 @@
 	let feedbackTypes = $state<string[]>([]);
 	let feedbackSentAt = $state('');
 	let showFeedbackThanks = $state(false);
+	let feedbackSubmitting = $state(false);
 
 	const completed = $derived(checklistItems.filter((item) => checked[item.id]).length);
 	const remaining = $derived(checklistItems.length - completed);
@@ -87,6 +88,7 @@
 	function giveMoreFeedback() {
 		showFeedbackThanks = false;
 		feedbackTypes = [];
+		feedbackSubmitting = false;
 	}
 
 	function toggleFeedbackType(type: string) {
@@ -96,8 +98,11 @@
 	}
 
 	function handleFeedbackSubmit(formElement: HTMLFormElement) {
+		feedbackSubmitting = true;
+
 		return async ({ result, update }: { result: { type: string }; update: () => Promise<void> }) => {
 			await update();
+			feedbackSubmitting = false;
 
 			if (result.type === 'success') {
 				feedbackSentAt = new Date().toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
@@ -204,26 +209,26 @@
 							<p class="mt-1 text-xs font-bold text-slate-500">Du skal vælge mindst én type før du kan sende.</p>
 						{/if}
 						<div class="mt-2 grid grid-cols-3 gap-2">
-							<label class="relative cursor-pointer rounded-2xl bg-white p-2 text-center text-slate-600 ring-2 ring-slate-200 transition has-[:checked]:bg-[#189A96] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#0f6f6b] sm:p-3">
+							<label class="relative cursor-pointer rounded-2xl bg-[#E1F4F5]/70 p-2 text-center text-[#126f6b] ring-2 ring-[#52C4C1]/25 transition has-[:checked]:bg-[#189A96] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#0f6f6b] sm:p-3">
 								<input class="sr-only" type="checkbox" name="type" value="good" checked={feedbackTypes.includes('good')} onchange={() => toggleFeedbackType('good')} />
 								{#if feedbackTypes.includes('good')}
-									<span class="absolute right-2 top-2 flex size-5 items-center justify-center rounded-full bg-white text-xs font-black text-[#189A96]">✓</span>
+									<span class="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full bg-white text-sm font-black text-[#189A96] shadow-sm ring-2 ring-white/70">✓</span>
 								{/if}
 								<span class="block text-xl sm:text-2xl">🎉</span>
 								<span class="mt-1 block text-xs font-black sm:text-base">Godt!</span>
 							</label>
-							<label class="relative cursor-pointer rounded-2xl bg-white p-2 text-center text-slate-600 ring-2 ring-slate-200 transition has-[:checked]:bg-[#C77D39] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#8d5727] sm:p-3">
+							<label class="relative cursor-pointer rounded-2xl bg-[#FFF4E7]/80 p-2 text-center text-[#9d612c] ring-2 ring-[#C77D39]/20 transition has-[:checked]:bg-[#C77D39] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#8d5727] sm:p-3">
 								<input class="sr-only" type="checkbox" name="type" value="improvement" checked={feedbackTypes.includes('improvement')} onchange={() => toggleFeedbackType('improvement')} />
 								{#if feedbackTypes.includes('improvement')}
-									<span class="absolute right-2 top-2 flex size-5 items-center justify-center rounded-full bg-white text-xs font-black text-[#C77D39]">✓</span>
+									<span class="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full bg-white text-sm font-black text-[#C77D39] shadow-sm ring-2 ring-white/70">✓</span>
 								{/if}
 								<span class="block text-xl sm:text-2xl">🛠️</span>
 								<span class="mt-1 block text-xs font-black sm:text-base">Forbedring</span>
 							</label>
-							<label class="relative cursor-pointer rounded-2xl bg-white p-2 text-center text-slate-600 ring-2 ring-slate-200 transition has-[:checked]:bg-[#6B8F1A] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#476013] sm:p-3">
+							<label class="relative cursor-pointer rounded-2xl bg-[#F3F8DC]/90 p-2 text-center text-[#527014] ring-2 ring-[#6B8F1A]/20 transition has-[:checked]:bg-[#6B8F1A] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#476013] sm:p-3">
 								<input class="sr-only" type="checkbox" name="type" value="suggestion" checked={feedbackTypes.includes('suggestion')} onchange={() => toggleFeedbackType('suggestion')} />
 								{#if feedbackTypes.includes('suggestion')}
-									<span class="absolute right-2 top-2 flex size-5 items-center justify-center rounded-full bg-white text-xs font-black text-[#6B8F1A]">✓</span>
+									<span class="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full bg-white text-sm font-black text-[#6B8F1A] shadow-sm ring-2 ring-white/70">✓</span>
 								{/if}
 								<span class="block text-xl sm:text-2xl">💡</span>
 								<span class="mt-1 block text-xs font-black sm:text-base">Forslag</span>
@@ -236,7 +241,7 @@
 						<textarea class="min-h-36 rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]" name="comment" required placeholder="Skriv din mening her...">{form?.comment ?? ''}</textarea>
 					</label>
 
-					<button type="submit" disabled={feedbackTypes.length === 0} class="mt-5 w-full rounded-2xl bg-[#189A96] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#137f7b] active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none">Send</button>
+					<button type="submit" disabled={feedbackTypes.length === 0 || feedbackSubmitting} class="mt-5 w-full rounded-2xl bg-[#189A96] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#137f7b] active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none">{feedbackSubmitting ? 'Sender...' : 'Send'}</button>
 				</form>
 				{/if}
 			</div>
