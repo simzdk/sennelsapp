@@ -14,11 +14,13 @@
 
 	let today = new Date();
 	let { form } = $props();
-	let appValue = $state<'menu' | 'strandfest' | 'feedback'>('menu');
+	const initialAppValue = () => (form?.feedbackSuccess || form?.feedbackError ? 'feedback' : 'menu');
+	let appValue = $state<'menu' | 'strandfest' | 'feedback'>(initialAppValue());
 	let dayValue = $state('home');
 	let checked = $state<Record<string, boolean>>({});
 	let feedbackTypes = $state<string[]>([]);
 	let showFeedbackFormAgain = $state(false);
+
 
 	const completed = $derived(checklistItems.filter((item) => checked[item.id]).length);
 	const remaining = $derived(checklistItems.length - completed);
