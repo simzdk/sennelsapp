@@ -27,6 +27,8 @@ const feedbackTypes = {
 
 type FeedbackType = keyof typeof feedbackTypes;
 
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function getFeedbackTypes(formData: FormData) {
 	return formData
 		.getAll('type')
@@ -54,6 +56,10 @@ export const actions = {
 
 		if (types.length === 0) {
 			return fail(400, { feedbackError: 'Vælg venligst en type feedback.', name, email, comment });
+		}
+
+		if (email && !emailPattern.test(email)) {
+			return fail(400, { feedbackError: 'Skriv venligst en gyldig emailadresse.', name, email, types, comment });
 		}
 
 		if (!comment) {
