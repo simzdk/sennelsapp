@@ -18,7 +18,7 @@
 	let appValue = $state<'menu' | 'strandfest' | 'feedback'>('menu');
 	let dayValue = $state('home');
 	let checked = $state<Record<string, boolean>>({});
-	let feedbackTypes = $state<string[]>(['good']);
+	let feedbackTypes = $state<string[]>([]);
 	let feedbackSentAt = $state('');
 	let showFeedbackThanks = $state(false);
 
@@ -86,7 +86,7 @@
 
 	function giveMoreFeedback() {
 		showFeedbackThanks = false;
-		feedbackTypes = ['good'];
+		feedbackTypes = [];
 	}
 
 	function handleFeedbackSubmit(formElement: HTMLFormElement) {
@@ -96,7 +96,7 @@
 			if (result.type === 'success') {
 				feedbackSentAt = new Date().toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
 				formElement.reset();
-				feedbackTypes = ['good'];
+				feedbackTypes = [];
 				showFeedbackThanks = true;
 			}
 		};
@@ -185,6 +185,9 @@
 
 					<fieldset class="mt-5">
 						<legend class="text-sm font-bold text-slate-700">Vælg en eller flere typer</legend>
+						{#if feedbackTypes.length === 0}
+							<p class="mt-1 text-xs font-bold text-slate-500">Du skal vælge mindst én type før du kan sende.</p>
+						{/if}
 						<div class="mt-2 grid grid-cols-3 gap-2">
 							<label class="relative cursor-pointer rounded-2xl bg-[#E1F4F5] p-2 text-center text-[#189A96] ring-2 ring-transparent transition has-[:checked]:bg-[#189A96] has-[:checked]:text-white has-[:checked]:shadow-lg has-[:checked]:ring-[#0f6f6b] sm:p-3">
 								<input class="sr-only" type="checkbox" name="type" value="good" bind:group={feedbackTypes} />
@@ -218,7 +221,7 @@
 						<textarea class="min-h-36 rounded-2xl border-slate-200 bg-white px-4 py-3 text-base text-slate-950 shadow-sm focus:border-[#52C4C1] focus:ring-[#52C4C1]" name="comment" required placeholder="Skriv din mening her...">{form?.comment ?? ''}</textarea>
 					</label>
 
-					<button type="submit" class="mt-5 w-full rounded-2xl bg-[#189A96] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#137f7b] active:scale-[0.99]">Send</button>
+					<button type="submit" disabled={feedbackTypes.length === 0} class="mt-5 w-full rounded-2xl bg-[#189A96] px-5 py-4 text-base font-black text-white shadow-sm transition hover:bg-[#137f7b] active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none">Send</button>
 				</form>
 				{/if}
 			</div>
