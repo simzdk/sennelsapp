@@ -24,6 +24,8 @@
 	let checked = $state<Record<string, boolean>>({});
 	let feedbackTypes = $state<string[]>([]);
 	let showFeedbackFormAgain = $state(false);
+	let touchStartX = 0;
+	let touchStartY = 0;
 
 
 	const completed = $derived(checklistItems.filter((item) => checked[item.id]).length);
@@ -88,6 +90,28 @@
 		showFeedbackFormAgain = false;
 	}
 
+	function backToMenu() {
+		appValue = 'menu';
+	}
+
+	function handleTouchStart(event: TouchEvent) {
+		const touch = event.touches[0];
+		touchStartX = touch.clientX;
+		touchStartY = touch.clientY;
+	}
+
+	function handleTouchEnd(event: TouchEvent) {
+		if (appValue === 'menu' || touchStartX > 48) return;
+
+		const touch = event.changedTouches[0];
+		const deltaX = touch.clientX - touchStartX;
+		const deltaY = Math.abs(touch.clientY - touchStartY);
+
+		if (deltaX > 80 && deltaY < 60) {
+			backToMenu();
+		}
+	}
+
 	function giveMoreFeedback() {
 		showFeedbackFormAgain = true;
 		feedbackTypes = [];
@@ -107,6 +131,8 @@
 	});
 </script>
 
+<svelte:window ontouchstart={handleTouchStart} ontouchend={handleTouchEnd} />
+
 <div class="min-h-dvh bg-gradient-to-b from-orange-50 via-white to-cyan-50 px-2 pb-20 pt-1">
 	<header class="mx-auto max-w-4xl px-3 pt-2 text-center">
 		{#if appValue === 'strandfest'}
@@ -119,7 +145,7 @@
 		<main class="mx-auto mt-5 max-w-3xl px-3">
 			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
 				<div class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
-					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Vælg app</p>
+					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Vælg underpunkt</p>
 					<p class="mt-3 text-sm leading-relaxed text-slate-600">Én app til Sennels.</p>
 
 					<div class="mt-6 grid grid-cols-2 gap-2 sm:gap-3">
@@ -168,7 +194,6 @@
 		</main>
 	{:else if appValue === 'feedback'}
 		<main class="mx-auto mt-5 max-w-2xl px-3">
-			<button type="button" class="mb-3 rounded-full bg-white px-4 py-2 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/30" onclick={() => (appValue = 'menu')}>← Tilbage til menu</button>
 			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
 				{#if form?.feedbackSuccess && !showFeedbackFormAgain}
 					<section class="rounded-[1.35rem] bg-white/95 p-6 text-center sm:p-8">
@@ -258,7 +283,6 @@
 		</main>
 	{:else}
 	<Tabs.Root bind:value={dayValue}>
-		<button type="button" class="mx-auto mt-4 block rounded-full bg-white px-4 py-2 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/30" onclick={() => (appValue = 'menu')}>← Tilbage til menu</button>
 		<div class="mx-auto mt-3 w-full max-w-3xl rounded-3xl bg-white/85 p-3 shadow-sm ring-1 ring-black/5 xl:max-w-3xl">
 			<Tabs.Content value="home">
 				<Landing {remaining} openChecklist={openChecklist} />
@@ -301,5 +325,17 @@
 			</Tabs.List>
 		</div>
 	</Tabs.Root>
+	{/if}
+
+	{#if appValue !== 'menu'}
+		<button
+			type="button"
+			class={appValue === 'strandfest'
+				? 'fixed bottom-20 left-3 z-30 rounded-full bg-white/95 px-4 py-3 text-sm font-black text-[#189A96] shadow-lg ring-1 ring-[#52C4C1]/30 backdrop-blur active:scale-[0.98] sm:left-6'
+				: 'fixed bottom-4 left-3 z-30 rounded-full bg-white/95 px-4 py-3 text-sm font-black text-[#189A96] shadow-lg ring-1 ring-[#52C4C1]/30 backdrop-blur active:scale-[0.98] sm:left-6'}
+			onclick={backToMenu}
+		>
+			← Menu
+		</button>
 	{/if}
 </div>
