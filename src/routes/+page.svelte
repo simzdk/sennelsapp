@@ -124,6 +124,28 @@
 					<p class="mt-3 text-sm leading-relaxed text-slate-600">Program, huskeliste og feedback samlet ét sted.</p>
 
 					<div class="mt-6 grid grid-cols-2 gap-2 sm:gap-3">
+						<section class="col-span-2 rounded-3xl bg-gradient-to-br from-red-50 via-white to-orange-50 p-4 text-left ring-1 ring-red-200/70 sm:p-5">
+							<div class="flex items-start justify-between gap-3">
+								<div>
+									<span class="flex size-12 items-center justify-center rounded-2xl bg-red-600 text-2xl shadow-sm sm:size-14 sm:text-3xl">🛒</span>
+									<span class="mt-4 block text-xl font-black leading-tight text-slate-950 sm:text-3xl">Red Sennels Købmand</span>
+								</div>
+								<span class="rounded-full bg-red-100 px-3 py-1 text-[10px] font-black uppercase tracking-wide text-red-700 ring-1 ring-red-200 sm:text-xs">Afventer start</span>
+							</div>
+
+							<div class="mt-5 flex items-end justify-between gap-4">
+								<div>
+									<p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Indsamling</p>
+									<p class="mt-1 text-sm font-bold text-slate-600">Indsamlingen er ikke gået i gang endnu.</p>
+								</div>
+								<p class="text-3xl font-black text-red-700 sm:text-4xl">0%</p>
+							</div>
+
+							<div class="mt-4 h-4 overflow-hidden rounded-full bg-slate-200 ring-1 ring-slate-300/70">
+								<div class="h-full w-0 rounded-full bg-red-600"></div>
+							</div>
+						</section>
+
 						<button
 							type="button"
 							class="group flex min-h-56 flex-col rounded-3xl bg-[#E1F4F5] p-3 text-left ring-1 ring-[#52C4C1]/35 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99] sm:min-h-64 sm:p-5"
