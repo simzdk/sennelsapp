@@ -120,29 +120,24 @@
 			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
 				<div class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
 					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Vælg app</p>
-					<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Hvad vil du åbne?</h2>
-					<p class="mt-3 text-sm leading-relaxed text-slate-600">Program, huskeliste og feedback samlet ét sted.</p>
+					<p class="mt-3 text-sm leading-relaxed text-slate-600">Én app til Sennels.</p>
 
 					<div class="mt-6 grid grid-cols-2 gap-2 sm:gap-3">
-						<section class="col-span-2 rounded-3xl bg-gradient-to-br from-red-50 via-white to-orange-50 p-4 text-left ring-1 ring-red-200/70 sm:p-5">
+						<section class="col-span-2 rounded-3xl bg-gradient-to-br from-[#E1F4F5] via-white to-[#EBF1C8] p-4 text-left ring-1 ring-[#52C4C1]/35 sm:p-5">
 							<div class="flex items-start justify-between gap-3">
-								<div>
-									<span class="flex size-12 items-center justify-center rounded-2xl bg-red-600 text-2xl shadow-sm sm:size-14 sm:text-3xl">🛒</span>
-									<span class="mt-4 block text-xl font-black leading-tight text-slate-950 sm:text-3xl">Red Sennels Købmand</span>
+								<div class="rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-slate-200/80">
+									<img class="h-10 w-auto max-w-48 sm:h-12 sm:max-w-64" src="/min-kobmand-logo.png" alt="Min Købmand" />
 								</div>
-								<span class="rounded-full bg-red-100 px-3 py-1 text-[10px] font-black uppercase tracking-wide text-red-700 ring-1 ring-red-200 sm:text-xs">Afventer start</span>
+								<span class="rounded-full bg-[#E1F4F5] px-3 py-1 text-[10px] font-black uppercase tracking-wide text-[#189A96] ring-1 ring-[#52C4C1]/35 sm:text-xs">Afventer start</span>
 							</div>
 
 							<div class="mt-5 flex items-end justify-between gap-4">
-								<div>
-									<p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Indsamling</p>
-									<p class="mt-1 text-sm font-bold text-slate-600">Indsamlingen er ikke gået i gang endnu.</p>
-								</div>
-								<p class="text-3xl font-black text-red-700 sm:text-4xl">0%</p>
+								<div></div>
+								<p class="text-3xl font-black text-[#189A96] sm:text-4xl">0%</p>
 							</div>
 
 							<div class="mt-4 h-4 overflow-hidden rounded-full bg-slate-200 ring-1 ring-slate-300/70">
-								<div class="h-full w-0 rounded-full bg-red-600"></div>
+								<div class="h-full w-0 rounded-full bg-[#189A96]"></div>
 							</div>
 						</section>
 
