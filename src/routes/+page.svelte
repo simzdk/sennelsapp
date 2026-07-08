@@ -26,7 +26,7 @@
 	let showFeedbackFormAgain = $state(false);
 	let touchStartX = 0;
 	let touchStartY = 0;
-	const collectedAmount = 0;
+	const collectedAmount = 156000;
 	const partialGoal = 625000;
 	const totalGoal = 1500000;
 	const partialGoalDate = new Date(today.getFullYear(), 7, 14);
@@ -38,8 +38,14 @@
 	const remaining = $derived(checklistItems.length - completed);
 	const partialGoalPercent = Math.min(100, Math.round((collectedAmount / partialGoal) * 100));
 	const totalGoalPercent = Math.min(100, Math.round((collectedAmount / totalGoal) * 100));
+	const partialGoalMarkerPercent = Math.min(100, (partialGoal / totalGoal) * 100);
 	const daysToPartialGoal = Math.max(0, Math.ceil((partialGoalDate.getTime() - today.getTime()) / dayInMs));
 	const daysToTotalGoal = Math.max(0, Math.ceil((totalGoalDate.getTime() - today.getTime()) / dayInMs));
+	const lastUpdated = new Intl.DateTimeFormat('da-DK', {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric'
+	}).format(today);
 
 	const dkk = new Intl.NumberFormat('da-DK', {
 		style: 'currency',
@@ -162,7 +168,6 @@
 			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
 				<div class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
 					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Vælg underpunkt</p>
-					<p class="mt-3 text-sm leading-relaxed text-slate-600">Én app til Sennels.</p>
 
 					<div class="mt-6 grid grid-cols-2 gap-2 sm:gap-3">
 						<section class="col-span-2 rounded-3xl bg-gradient-to-br from-[#E1F4F5] via-white to-[#EBF1C8] p-4 text-left ring-1 ring-[#52C4C1]/35 sm:p-5">
@@ -170,7 +175,6 @@
 								<div class="rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-slate-200/80">
 									<img class="h-10 w-auto max-w-48 sm:h-12 sm:max-w-64" src="/min-kobmand-logo.png" alt="Min Købmand" />
 								</div>
-								<span class="rounded-full bg-[#E1F4F5] px-3 py-1 text-[10px] font-black uppercase tracking-wide text-[#189A96] ring-1 ring-[#52C4C1]/35 sm:text-xs">Indsamling</span>
 							</div>
 
 							<div class="mt-5 flex items-end justify-between gap-4">
@@ -178,35 +182,29 @@
 									<p class="text-xs font-black uppercase tracking-[0.2em] text-[#C77D39]">Indsamlet</p>
 									<p class="mt-1 text-3xl font-black text-slate-950 sm:text-4xl">{dkk.format(collectedAmount)}</p>
 								</div>
-								<p class="text-3xl font-black text-[#189A96] sm:text-4xl">{totalGoalPercent}%</p>
+								<div class="text-right">
+									<p class="text-xs font-black uppercase tracking-[0.2em] text-[#C77D39]">Af samlet mål</p>
+									<p class="mt-1 text-3xl font-black text-[#189A96] sm:text-4xl">{totalGoalPercent}%</p>
+								</div>
 							</div>
 
-							<div class="mt-4 h-4 overflow-hidden rounded-full bg-slate-200 ring-1 ring-slate-300/70">
-								<div class="h-full rounded-full bg-[#189A96]" style={`width: ${totalGoalPercent}%`}></div>
-							</div>
-
-							<div class="mt-4 grid gap-2 sm:grid-cols-2">
-								<div class="rounded-2xl bg-white/85 p-3 ring-1 ring-[#52C4C1]/25">
-									<div class="flex items-start justify-between gap-3">
-										<div>
-											<p class="text-[10px] font-black uppercase tracking-[0.18em] text-[#189A96]">Delmål</p>
-											<p class="mt-1 text-lg font-black text-slate-950">{dkk.format(partialGoal)}</p>
-										</div>
-										<p class="text-lg font-black text-[#189A96]">{partialGoalPercent}%</p>
-									</div>
-									<p class="mt-2 text-xs font-bold text-slate-600">14. august · {daysToPartialGoal} dage tilbage</p>
+							<div class="mt-6">
+								<div class="relative h-6 bg-slate-200 ring-1 ring-slate-300/70">
+									<div class="h-full bg-[#189A96]" style={`width: ${totalGoalPercent}%`}></div>
+									<div class="absolute -top-1 h-7 w-0.5 rounded-full bg-[#C77D39]" style={`left: ${partialGoalMarkerPercent}%`}></div>
 								</div>
-
-								<div class="rounded-2xl bg-white/85 p-3 ring-1 ring-[#52C4C1]/25">
-									<div class="flex items-start justify-between gap-3">
-										<div>
-											<p class="text-[10px] font-black uppercase tracking-[0.18em] text-[#189A96]">Samlet mål</p>
-											<p class="mt-1 text-lg font-black text-slate-950">{dkk.format(totalGoal)}</p>
-										</div>
-										<p class="text-lg font-black text-[#189A96]">{totalGoalPercent}%</p>
+								<div class="mt-4 flex justify-between gap-4 text-xs font-bold text-slate-600">
+									<span>0 kr.</span>
+									<div class="text-center text-[#C77D39]">
+										<p>{dkk.format(partialGoal)}</p>
+										<span class="mt-2 inline-flex rounded-full bg-[#FFF4E7] px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-[#C77D39] ring-1 ring-[#C77D39]/25">{daysToPartialGoal} dage tilbage</span>
 									</div>
-									<p class="mt-2 text-xs font-bold text-slate-600">28. august · {daysToTotalGoal} dage tilbage</p>
+									<div class="text-right text-[#189A96]">
+										<p>{dkk.format(totalGoal)}</p>
+										<span class="mt-2 inline-flex rounded-full bg-[#E1F4F5] px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-[#189A96] ring-1 ring-[#52C4C1]/35">{daysToTotalGoal} dage tilbage</span>
+									</div>
 								</div>
+								<p class="mt-4 text-right text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Sidst opdateret {lastUpdated}</p>
 							</div>
 						</section>
 
