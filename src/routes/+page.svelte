@@ -183,7 +183,7 @@
 									<p class="mt-1 text-3xl font-black text-slate-950 sm:text-4xl">{dkk.format(collectedAmount)}</p>
 								</div>
 								<div class="text-right">
-									<p class="text-xs font-black uppercase tracking-[0.2em] text-[#C77D39]">Af samlet mål</p>
+									<p class="whitespace-nowrap text-[10px] font-black uppercase tracking-[0.14em] text-[#C77D39] sm:text-xs sm:tracking-[0.2em]">Af samlet mål</p>
 									<p class="mt-1 text-3xl font-black text-[#189A96] sm:text-4xl">{totalGoalPercent}%</p>
 								</div>
 							</div>
