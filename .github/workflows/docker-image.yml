@@ -57,5 +57,12 @@ jobs:
           context: .
           push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.tags.outputs.tags }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          no-cache: true
+
+      - name: Trigger Dokploy test deploy
+        if: github.event_name == 'push' && github.ref_name == 'dev'
+        run: curl -fsS -X POST "${{ secrets.DOKPLOY_TEST_DEPLOY_WEBHOOK }}"
+
+      - name: Trigger Dokploy production deploy
+        if: github.event_name == 'push' && github.ref_name == 'main'
+        run: curl -fsS -X POST "${{ secrets.DOKPLOY_PROD_DEPLOY_WEBHOOK }}"

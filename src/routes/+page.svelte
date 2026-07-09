@@ -24,10 +24,29 @@
 	let checked = $state<Record<string, boolean>>({});
 	let feedbackTypes = $state<string[]>([]);
 	let showFeedbackFormAgain = $state(false);
+	let touchStartX = 0;
+	let touchStartY = 0;
+	const collectedAmount = 156000;
+	const totalGoal = 1500000;
+	const totalGoalDate = new Date(today.getFullYear(), 7, 28);
+	const dayInMs = 24 * 60 * 60 * 1000;
 
 
 	const completed = $derived(checklistItems.filter((item) => checked[item.id]).length);
 	const remaining = $derived(checklistItems.length - completed);
+	const totalGoalPercent = Math.min(100, Math.round((collectedAmount / totalGoal) * 100));
+	const daysToTotalGoal = Math.max(0, Math.ceil((totalGoalDate.getTime() - today.getTime()) / dayInMs));
+	const lastUpdated = new Intl.DateTimeFormat('da-DK', {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric'
+	}).format(today);
+
+	const dkk = new Intl.NumberFormat('da-DK', {
+		style: 'currency',
+		currency: 'DKK',
+		maximumFractionDigits: 0
+	});
 
 	$effect(() => {
 		if (!browser) return;
@@ -88,6 +107,28 @@
 		showFeedbackFormAgain = false;
 	}
 
+	function backToMenu() {
+		appValue = 'menu';
+	}
+
+	function handleTouchStart(event: TouchEvent) {
+		const touch = event.touches[0];
+		touchStartX = touch.clientX;
+		touchStartY = touch.clientY;
+	}
+
+	function handleTouchEnd(event: TouchEvent) {
+		if (appValue === 'menu' || touchStartX > 48) return;
+
+		const touch = event.changedTouches[0];
+		const deltaX = touch.clientX - touchStartX;
+		const deltaY = Math.abs(touch.clientY - touchStartY);
+
+		if (deltaX > 80 && deltaY < 60) {
+			backToMenu();
+		}
+	}
+
 	function giveMoreFeedback() {
 		showFeedbackFormAgain = true;
 		feedbackTypes = [];
@@ -107,6 +148,8 @@
 	});
 </script>
 
+<svelte:window ontouchstart={handleTouchStart} ontouchend={handleTouchEnd} />
+
 <div class="min-h-dvh bg-gradient-to-b from-orange-50 via-white to-cyan-50 px-2 pb-20 pt-1">
 	<header class="mx-auto max-w-4xl px-3 pt-2 text-center">
 		{#if appValue === 'strandfest'}
@@ -119,11 +162,42 @@
 		<main class="mx-auto mt-5 max-w-3xl px-3">
 			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
 				<div class="rounded-[1.35rem] bg-white/95 p-5 sm:p-7">
-					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Vælg app</p>
-					<h2 class="mt-2 text-3xl font-black leading-tight text-slate-950">Hvad vil du åbne?</h2>
-					<p class="mt-3 text-sm leading-relaxed text-slate-600">Program, huskeliste og feedback samlet ét sted.</p>
+					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Vælg underpunkt</p>
 
 					<div class="mt-6 grid grid-cols-2 gap-2 sm:gap-3">
+						<section class="col-span-2 rounded-3xl bg-gradient-to-br from-[#E1F4F5] via-white to-[#EBF1C8] p-4 text-left ring-1 ring-[#52C4C1]/35 sm:p-5">
+							<div class="flex items-start justify-between gap-3">
+								<div class="rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-slate-200/80">
+									<img class="h-10 w-auto max-w-48 sm:h-12 sm:max-w-64" src="/min-kobmand-logo.png" alt="Min Købmand" />
+								</div>
+							</div>
+
+							<div class="mt-5 flex items-end justify-between gap-4">
+								<div>
+									<p class="text-[10px] font-black uppercase tracking-[0.16em] text-[#C77D39] sm:text-xs sm:tracking-[0.2em]">Indsamlet</p>
+									<p class="mt-1 text-2xl font-black text-slate-950 sm:text-3xl">{dkk.format(collectedAmount)}</p>
+								</div>
+								<div class="text-right">
+									<p class="whitespace-nowrap text-[10px] font-black uppercase tracking-[0.14em] text-[#C77D39] sm:text-xs sm:tracking-[0.2em]">Af samlet mål</p>
+									<p class="mt-1 text-2xl font-black text-[#189A96] sm:text-3xl">{totalGoalPercent}%</p>
+								</div>
+							</div>
+
+							<div class="mt-6">
+								<div class="relative h-6 bg-slate-200 ring-1 ring-slate-300/70">
+									<div class="h-full bg-[#189A96]" style={`width: ${totalGoalPercent}%`}></div>
+								</div>
+								<div class="mt-4 flex justify-between gap-4 text-[11px] font-bold text-slate-600 sm:text-xs">
+									<span>0 kr.</span>
+									<div class="text-right text-[#189A96]">
+										<p>{dkk.format(totalGoal)}</p>
+										<span class="mt-2 inline-flex rounded-full bg-[#E1F4F5] px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-[#189A96] ring-1 ring-[#52C4C1]/35">{daysToTotalGoal} dage tilbage</span>
+									</div>
+								</div>
+								<p class="mt-4 text-right text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Sidst opdateret {lastUpdated}</p>
+							</div>
+						</section>
+
 						<button
 							type="button"
 							class="group flex min-h-56 flex-col rounded-3xl bg-[#E1F4F5] p-3 text-left ring-1 ring-[#52C4C1]/35 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99] sm:min-h-64 sm:p-5"
@@ -151,7 +225,6 @@
 		</main>
 	{:else if appValue === 'feedback'}
 		<main class="mx-auto mt-5 max-w-2xl px-3">
-			<button type="button" class="mb-3 rounded-full bg-white px-4 py-2 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/30" onclick={() => (appValue = 'menu')}>← Tilbage til menu</button>
 			<div class="overflow-hidden rounded-3xl bg-gradient-to-br from-[#52C4C1] via-[#EBF1C8] to-[#BFDA6B] p-1 shadow-lg">
 				{#if form?.feedbackSuccess && !showFeedbackFormAgain}
 					<section class="rounded-[1.35rem] bg-white/95 p-6 text-center sm:p-8">
@@ -241,7 +314,6 @@
 		</main>
 	{:else}
 	<Tabs.Root bind:value={dayValue}>
-		<button type="button" class="mx-auto mt-4 block rounded-full bg-white px-4 py-2 text-sm font-bold text-[#189A96] ring-1 ring-[#52C4C1]/30" onclick={() => (appValue = 'menu')}>← Tilbage til menu</button>
 		<div class="mx-auto mt-3 w-full max-w-3xl rounded-3xl bg-white/85 p-3 shadow-sm ring-1 ring-black/5 xl:max-w-3xl">
 			<Tabs.Content value="home">
 				<Landing {remaining} openChecklist={openChecklist} />
@@ -284,5 +356,17 @@
 			</Tabs.List>
 		</div>
 	</Tabs.Root>
+	{/if}
+
+	{#if appValue !== 'menu'}
+		<button
+			type="button"
+			class={appValue === 'strandfest'
+				? 'fixed bottom-20 left-3 z-30 rounded-full bg-white/95 px-4 py-3 text-sm font-black text-[#189A96] shadow-lg ring-1 ring-[#52C4C1]/30 backdrop-blur active:scale-[0.98] sm:left-6'
+				: 'fixed bottom-4 left-3 z-30 rounded-full bg-white/95 px-4 py-3 text-sm font-black text-[#189A96] shadow-lg ring-1 ring-[#52C4C1]/30 backdrop-blur active:scale-[0.98] sm:left-6'}
+			onclick={backToMenu}
+		>
+			← Menu
+		</button>
 	{/if}
 </div>
