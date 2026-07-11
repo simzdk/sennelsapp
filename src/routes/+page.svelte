@@ -26,7 +26,8 @@
 	let showFeedbackFormAgain = $state(false);
 	let touchStartX = 0;
 	let touchStartY = 0;
-	const collectedAmount = 156000;
+	const collectedAmount = 316000;
+	const collectedAmountUpdatedAt = new Date(2026, 6, 11);
 	const totalGoal = 1500000;
 	const totalGoalDate = new Date(today.getFullYear(), 7, 28);
 	const dayInMs = 24 * 60 * 60 * 1000;
@@ -40,7 +41,7 @@
 		day: 'numeric',
 		month: 'long',
 		year: 'numeric'
-	}).format(today);
+	}).format(collectedAmountUpdatedAt);
 
 	const dkk = new Intl.NumberFormat('da-DK', {
 		style: 'currency',
