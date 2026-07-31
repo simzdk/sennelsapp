@@ -204,7 +204,7 @@
 							class="group relative flex min-h-56 flex-col overflow-hidden rounded-3xl bg-[#E1F4F5] p-3 text-left ring-1 ring-[#52C4C1]/35 transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99] sm:min-h-64 sm:p-5"
 							onclick={openStrandfest}
 						>
-							<span class="absolute -right-16 top-8 w-56 rotate-45 bg-[#C77D39] py-1.5 text-center text-[10px] font-black uppercase tracking-[0.12em] text-white shadow-md sm:top-9 sm:text-xs">Afholdt for i år</span>
+							<span class="pointer-events-none absolute left-1/2 top-1/2 z-10 w-[150%] -translate-x-1/2 -translate-y-1/2 -rotate-[38deg] bg-[#5146A8] py-2.5 text-center text-xs font-black uppercase tracking-[0.16em] text-white shadow-lg sm:py-3 sm:text-sm">Afholdt for i år</span>
 							<span class="flex size-12 items-center justify-center rounded-2xl bg-[#189A96] text-2xl shadow-sm sm:size-14 sm:text-3xl">📅</span>
 							<span class="mt-4 block text-lg font-black leading-tight text-slate-950 sm:text-2xl">Malle Strandfest</span>
 							<span class="mt-2 block flex-1 text-xs leading-relaxed text-slate-600 sm:text-sm">Se programmet og din huskeliste.</span>
