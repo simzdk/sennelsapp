@@ -192,7 +192,7 @@
 									<span>0 kr.</span>
 									<div class="text-right text-[#189A96]">
 										<p>{dkk.format(totalGoal)}</p>
-										<span class="mt-3 inline-flex items-center rounded-xl bg-[#C77D39] px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-white shadow-sm ring-1 ring-[#A8612A]/40 sm:text-sm">{daysToTotalGoal} dage tilbage</span>
+										<span class="mt-3 inline-flex items-center rounded-xl bg-[#2457A6] px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-white shadow-sm ring-1 ring-[#193D75]/40 sm:text-sm">{daysToTotalGoal} dage tilbage</span>
 									</div>
 								</div>
 								<p class="mt-4 text-right text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Sidst opdateret {lastUpdated}</p>
