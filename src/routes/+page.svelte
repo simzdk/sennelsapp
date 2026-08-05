@@ -26,8 +26,8 @@
 	let showFeedbackFormAgain = $state(false);
 	let touchStartX = 0;
 	let touchStartY = 0;
-	const collectedAmount = 700000;
-	const collectedAmountUpdatedAt = new Date(2026, 6, 30);
+	const collectedAmount = 852000;
+	const collectedAmountUpdatedAt = new Date(2026, 7, 5);
 	const totalGoal = 1500000;
 	const totalGoalDate = new Date(today.getFullYear(), 7, 28);
 	const dayInMs = 24 * 60 * 60 * 1000;
