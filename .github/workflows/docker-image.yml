@@ -61,8 +61,22 @@ jobs:
 
       - name: Trigger Dokploy test deploy
         if: github.event_name == 'push' && github.ref_name == 'dev'
-        run: curl -fsS -X POST "${{ secrets.DOKPLOY_TEST_DEPLOY_WEBHOOK }}"
+        run: |
+          set -euo pipefail
+          out=$(curl -fsS --max-time 60 -X POST "${{ secrets.DOKPLOY_TEST_DEPLOY_WEBHOOK }}")
+          echo "Dokploy responded: $out"
+          # A Cloudflare Access redirect is a 302, which curl treats as success.
+          # Assert the real answer, otherwise a blocked webhook looks like a deploy.
+          echo "$out" | grep -q "deployed successfully" \
+            || { echo "::error::Dokploy did not accept the test deploy (webhook blocked or rejected)"; exit 1; }
 
       - name: Trigger Dokploy production deploy
         if: github.event_name == 'push' && github.ref_name == 'main'
-        run: curl -fsS -X POST "${{ secrets.DOKPLOY_PROD_DEPLOY_WEBHOOK }}"
+        run: |
+          set -euo pipefail
+          out=$(curl -fsS --max-time 60 -X POST "${{ secrets.DOKPLOY_PROD_DEPLOY_WEBHOOK }}")
+          echo "Dokploy responded: $out"
+          # A Cloudflare Access redirect is a 302, which curl treats as success.
+          # Assert the real answer, otherwise a blocked webhook looks like a deploy.
+          echo "$out" | grep -q "deployed successfully" \
+            || { echo "::error::Dokploy did not accept the production deploy (webhook blocked or rejected)"; exit 1; }
