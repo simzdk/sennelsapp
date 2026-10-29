@@ -26,6 +26,8 @@
 	let showFeedbackFormAgain = $state(false);
 	let touchStartX = 0;
 	let touchStartY = 0;
+	// Min Købmand-indsamlingen er afsluttet. Sæt til true igen ved en ny indsamling
+	const showCollection = false;
 	const collectedAmount = 156000;
 	const totalGoal = 1500000;
 	const totalGoalDate = new Date(today.getFullYear(), 7, 28);
@@ -165,6 +167,7 @@
 					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#C77D39]">Vælg underpunkt</p>
 
 					<div class="mt-6 grid grid-cols-2 gap-2 sm:gap-3">
+						{#if showCollection}
 						<section class="col-span-2 rounded-3xl bg-gradient-to-br from-[#E1F4F5] via-white to-[#EBF1C8] p-4 text-left ring-1 ring-[#52C4C1]/35 sm:p-5">
 							<div class="flex items-start justify-between gap-3">
 								<div class="rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-slate-200/80">
@@ -197,6 +200,7 @@
 								<p class="mt-4 text-right text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Sidst opdateret {lastUpdated}</p>
 							</div>
 						</section>
+						{/if}
 
 						<button
 							type="button"
